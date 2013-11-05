@@ -37,8 +37,10 @@ public interface Code
 }
 public interface Type<E>
 {
-	public abstract E fromStack(VirtualMachine m, int index);
-	public abstract void toStack(VirtualMachine m, E value);
+	public abstract E pop(VirtualMachine m);
+	public abstract void push(VirtualMachine m, E value);
+	public abstract E read(VirtualMachine m, int index);
+	public abstract void write(VirtualMachine m, int index, E value);
 }
 public class IntegerType implements Type<Integer>
 {
@@ -50,12 +52,24 @@ public class IAdd implements Code
 {
 	public void executeOn(VirtualMachine m)
 	{
-		int a = IntegerType.fromStack(m, 0);
-		int b = IntegerType.fromStack(m, 1);
-		IntegerType.toStack(m,a+b);
+		int a = IntegerType.pop(m);
+		int b = IntegerType.pop(m);
+		IntegerType.push(m,a+b);
+		m.instructionComplete();
 	}
 }
 
+public class IStore implements Code
+{
+	protected int index;
+
+	public void executeOn(VirtualMachine m)
+	{
+		int a = IntegerType.pop(m);
+		IntegerType.write(m, index, a);
+		m.instructionComplete();
+	}
+}
 
 public class Test
 {
