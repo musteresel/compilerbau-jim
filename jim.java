@@ -1,45 +1,71 @@
 
 public interface StackAccess
 {
-	public abstract ByteBuffer pop(int num);
-	public abstract ByteBuffer push(int num);
+	public abstract byte[] pop(int num);
+	public abstract void push(byte[] data);
 }
 public interface FrameAccess
 {
-	public abstract ByteBuffer fread(int offset, int num);
-	public abstract ByteBuffer fwrite(int offset, int num);
+	public abstract byte[] fread(int offset, int num);
+	public abstract void fwrite(int offset, byte[] data);
 	public abstract void mark(int offset);
 	public abstract int mark(void);
 }
 public interface RandomAccess
 {
-	public abstract ByteBuffer read(int pos, int num);
-	public abstract ByteBuffer write(int pos, int num);
+	public abstract byte[] read(int pos, int num);
+	public abstract void write(int pos, byte[] data);
 }
 
 
 public class Machine implements StackAccess, FrameAccess, RandomAccess
 {
-	protected byte[] data;
-	protected ByteBuffer stack;
-	protected ByteBuffer frame;
+	protected byte[] memory;
 	protected int mp;
 	protected int sp;
 
-	public ByteBuffer pop(int num)
+	public byte[] pop(int num)
 	{
-		stack.position(stack.position - num);
-		ByteBuffer slice = stack.slice();
-		slice.limit(num);
-		stack.limit(stack.position);
-		return slice;
+		int temp = sp;
+		sp = sp - num;
+		return read(sp, temp);
+	}
+	public void push(byte[] data)
+	{
+		write(sp, data);
+		sp += data.length;
+	}
 
-		List<int> l = data.asList();
-		List<int> s = l.subList(sp - num, sp);
-	}
-	public ByteBuffer push(int num)
+	public byte[] fread(int offset, int num)
 	{
+		return read(mp + offset, num);
 	}
+	public void fwrite(int offset, byte[] data)
+	{
+		write(mp + offset, data);
+	}
+	public int mark(void)
+	{
+		return mp;
+	}
+	public void mark(int m)
+	{
+		mp = m;
+	}
+
+	public byte[] read(int pos, int num)
+	{
+		return Arrays.copyOfRange(memory, pos, pos + num);
+	}
+	public void write(int pos, byte[] data)
+	{
+		for (int i = 0; i < data.length; i++)
+		{
+			memory[pos] = data[i];
+			pos++;
+		}
+	}
+
 
 }	
 
