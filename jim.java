@@ -3,23 +3,6 @@
  Cycle:
  MachineState -> Code -> MachineState
  */
-public interface Register
-{
-	public abstract int read_register(int id);
-	public abstract void write_register(int id, int data);
-}
-public interface Memory
-{
-	public abstract byte[] read_memory(int position, int num);
-	public abstract void write_memory(int position, byte[] data);
-}
-
-public interface MachineState
-{
-	public abstract Register get_register(void);
-	public abstract Memory get_memory(void);
-}
-
 public interface VirtualMachine
 {
 	public abstract void step(void);
@@ -27,18 +10,6 @@ public interface VirtualMachine
 	public abstract MachineState get_state(void);
 }
 
-public interface Instruction
-{
-	public abstract void executeWith(MachineState state);
-}
-
-
-public interface Type
-{
-	public abstract int size(void);
-	public abstract void from(byte[] data);
-	public abstract byte[] to();
-}
 public class IntegerType implements Type
 {
 	protected int value;
