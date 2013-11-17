@@ -3,13 +3,6 @@
  Cycle:
  MachineState -> Code -> MachineState
  */
-public interface VirtualMachine
-{
-	public abstract void step(void);
-	public abstract boolean good(void);
-	public abstract MachineState get_state(void);
-}
-
 public class IntegerType implements Type
 {
 	protected int value;

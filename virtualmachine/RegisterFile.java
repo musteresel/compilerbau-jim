@@ -1,3 +1,5 @@
+package virtualmachine;
+
 
 /** Interface to access registers of the VM.
  *

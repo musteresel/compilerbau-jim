@@ -1,4 +1,8 @@
+package virtualmachine;
+
+
 import MachineState;
+
 
 /** Instruction interface, every instruction must implement this.
  *

@@ -1,3 +1,5 @@
+package virtualmachine;
+
 
 /** Type interface every Type must implement.
  *

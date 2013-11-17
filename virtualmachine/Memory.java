@@ -1,3 +1,5 @@
+package virtualmachine;
+
 
 /** Memory interface abstraction.
  *
@@ -29,5 +31,4 @@ public interface Memory
 	 * */
 	public abstract void write_memory(int position, byte[] data);
 }
-
 

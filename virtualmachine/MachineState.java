@@ -1,3 +1,5 @@
+package virtualmachine;
+
 
 /** Interface to access the state of the VM.
  *
@@ -28,5 +30,4 @@ public interface MachineState
 	 * */
 	public abstract Memory get_memory();
 }
-
 
