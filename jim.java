@@ -28,6 +28,7 @@ public class IAdd implements Instruction
 		StackAccess.pop(state, a);
 		StackAccess.pop(state, b);
 		StackAccess.push(state, a.add(b));
+		FlowControl.step(state);
 	}
 }
 
@@ -51,35 +52,6 @@ public class SimpleVM implements VirtualMachine
 	}
 }
 
-
-
-public interface Code
-{
-	public abstract void executeOn(VirtualMachine m);
-}
-public interface Type<E>
-{
-	public abstract E pop(VirtualMachine m);
-	public abstract void push(VirtualMachine m, E value);
-	public abstract E read(VirtualMachine m, int index);
-	public abstract void write(VirtualMachine m, int index, E value);
-}
-public class IntegerType implements Type<Integer>
-{
-	// TODO
-}
-
-
-public class IAdd implements Code
-{
-	public void executeOn(VirtualMachine m)
-	{
-		int a = IntegerType.pop(m);
-		int b = IntegerType.pop(m);
-		IntegerType.push(m,a+b);
-		m.instructionComplete();
-	}
-}
 
 public class IStore implements Code
 {
