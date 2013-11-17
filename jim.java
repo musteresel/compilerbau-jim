@@ -1,4 +1,89 @@
 
+/*
+ Cycle:
+ MachineState -> Code -> MachineState
+ */
+public interface Register<BaseType>
+{
+	public abstract BaseType read_register(int id);
+	public abstract void write_register(int id, BaseType data);
+}
+public interface Memory
+{
+	public abstract byte[] read_memory(int position, int num);
+	public abstract void write_memory(int position, byte[] data);
+}
+
+public interface MachineState<BaseType>
+{
+	public abstract Register<BaseType> get_register(void);
+	public abstract Memory get_memory(void);
+}
+
+public interface VirtualMachine<BaseType>
+{
+	public abstract void step(void);
+	public abstract boolean good(void);
+	public abstract MachineState<BaseType> get_state(void);
+}
+
+public interface Instruction<BaseType>
+{
+	public abstract void executeWith(MachineState<BaseType> state);
+}
+
+
+public interface Type
+{
+	public abstract int size(void);
+	public abstract void from(byte[] data);
+	public abstract byte[] to();
+}
+public class IntegerType implements Type
+{
+	protected int value;
+	public int size()
+	{
+		return 4;
+	}
+	public void from (byte[] data)
+	{
+		value = ByteBuffer.wrap(data).getInt();
+	}
+	public byte[] to()
+	{
+		return ByteBuffer.allocate(this.size()).putInt(value).array();
+	}
+}
+
+// Type ---> IntegerType
+// StackAccess.pop(state, type)
+// {
+// regs = state.get_register();
+// int tmp = regs.read_register(StackAccess.SP);
+// regs.write_register(StackAccess.SP, tmp - type.size());
+// RandomAccess.read(state, type, tmp - type.size());
+// }
+//
+// RandomAccess.read(state, type, pos)
+// {
+// byte[] data = state.get_memory().read_memory(pos, type.size());
+// type.from(data);
+// }
+//
+// 
+
+public class IAdd implements Instruction
+{
+	public void executeWith(MachineState state)
+	{
+		IntegerType a, b
+		StackAccess.pop(state, a);
+		StackAccess.pop(state, b);
+		StackAccess.push(state, a.add(b));
+	}
+}
+
 public interface StackAccess
 {
 	public abstract byte[] pop(int num);
@@ -11,14 +96,9 @@ public interface FrameAccess
 	public abstract void mark(int offset);
 	public abstract int mark(void);
 }
-public interface RandomAccess
-{
-	public abstract byte[] read(int pos, int num);
-	public abstract void write(int pos, byte[] data);
-}
 
 
-public class Machine implements StackAccess, FrameAccess, RandomAccess
+public class Machine implements StackAccess, FrameAccess, Memory
 {
 	protected byte[] memory;
 	protected int mp;
