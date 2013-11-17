@@ -1,6 +1,9 @@
 package virtualmachine;
 
 
+import virtualmachine.MachineState;
+
+
 /** General interface to the Virtual Machine.
  *
  * This interface is intented to provide access to the VM from

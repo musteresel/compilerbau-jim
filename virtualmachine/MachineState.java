@@ -6,8 +6,8 @@ package virtualmachine;
  * This interface is intented to encapsulate all state of the VM.
  * The state currently consits of the register file and the memory.
  * 
- * @see RegisterFile
- * @see Memory
+ * @see virtualmachine.RegisterFile
+ * @see virtualmachine.Memory
  * */
 public interface MachineState
 {

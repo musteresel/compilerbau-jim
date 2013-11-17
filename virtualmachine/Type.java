@@ -8,9 +8,9 @@ package virtualmachine;
  * and FrameAccess. Unfortunately, this design is quite memory allocation
  * intensive.
  *
- * @see RandomAccess
- * @see StackAccess
- * @see FrameAccess
+ * @see virtualmachine.RandomAccess
+ * @see virtualmachine.StackAccess
+ * @see virtualmachine.FrameAccess
  *  */
 public interface Type
 {

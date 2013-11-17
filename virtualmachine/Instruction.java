@@ -1,7 +1,7 @@
 package virtualmachine;
 
 
-import MachineState;
+import virtualmachine.MachineState;
 
 
 /** Instruction interface, every instruction must implement this.
