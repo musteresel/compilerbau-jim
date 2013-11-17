@@ -20,23 +20,6 @@ public class IntegerType implements Type
 	}
 }
 
-// Type ---> IntegerType
-// StackAccess.pop(state, type)
-// {
-// regs = state.get_register();
-// int tmp = regs.read_register(StackAccess.SP);
-// regs.write_register(StackAccess.SP, tmp - type.size());
-// RandomAccess.read(state, type, tmp - type.size());
-// }
-//
-// RandomAccess.read(state, type, pos)
-// {
-// byte[] data = state.get_memory().read_memory(pos, type.size());
-// type.from(data);
-// }
-//
-// 
-
 public class IAdd implements Instruction
 {
 	public void executeWith(MachineState state)
@@ -46,87 +29,6 @@ public class IAdd implements Instruction
 		StackAccess.pop(state, b);
 		StackAccess.push(state, a.add(b));
 	}
-}
-
-public interface StackAccess
-{
-	public abstract byte[] pop(int num);
-	public abstract void push(byte[] data);
-}
-public interface FrameAccess
-{
-	public abstract byte[] fread(int offset, int num);
-	public abstract void fwrite(int offset, byte[] data);
-	public abstract void mark(int offset);
-	public abstract int mark(void);
-}
-
-
-public class Machine implements StackAccess, FrameAccess, Memory
-{
-	protected byte[] memory;
-	protected int mp;
-	protected int sp;
-
-	public byte[] pop(int num)
-	{
-		int temp = sp;
-		sp = sp - num;
-		return read(sp, temp);
-	}
-	public void push(byte[] data)
-	{
-		write(sp, data);
-		sp += data.length;
-	}
-
-	public byte[] fread(int offset, int num)
-	{
-		return read(mp + offset, num);
-	}
-	public void fwrite(int offset, byte[] data)
-	{
-		write(mp + offset, data);
-	}
-	public int mark(void)
-	{
-		return mp;
-	}
-	public void mark(int m)
-	{
-		mp = m;
-	}
-
-	public byte[] read(int pos, int num)
-	{
-		return Arrays.copyOfRange(memory, pos, pos + num);
-	}
-	public void write(int pos, byte[] data)
-	{
-		for (int i = 0; i < data.length; i++)
-		{
-			memory[pos] = data[i];
-			pos++;
-		}
-	}
-
-
-}	
-
-// ----------XXXX
-//               ^ pos
-//               ^ limit
-//           ^ pos
-//           ^ limit
-
-public interface VirtualMachine
-{
-	public abstract void step(void);
-	public abstract boolean good(void);
-
-	// access:
-	// - CONST mem
-	// - STACK mem
 }
 
 public class SimpleVM implements VirtualMachine
