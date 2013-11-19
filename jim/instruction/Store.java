@@ -4,6 +4,9 @@ package jim.instruction;
 import virtualmachine.Instruction;
 import virtualmachine.MachineState;
 import virtualmachine.Type;
+import virtualmachine.FrameAccess;
+import virtualmachine.StackAccess;
+import virtualmachine.FlowControl;
 
 
 /** Generic store instruction.
