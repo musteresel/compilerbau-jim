@@ -16,6 +16,12 @@ public class IntegerType implements NumericType
 	}
 
 
+	public int getInt()
+	{
+		return this.value;
+	}
+	
+	
 	public int size()
 	{
 		return 4;

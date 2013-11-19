@@ -16,6 +16,12 @@ public class DoubleType implements NumericType
 	}
 
 
+	public double getDouble()
+	{
+		return this.value;
+	}
+
+
 	public int size()
 	{
 		return 8;
