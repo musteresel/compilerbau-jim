@@ -1,37 +1,4 @@
 
-/*
- Cycle:
- MachineState -> Code -> MachineState
- */
-public class IntegerType implements Type
-{
-	protected int value;
-	public int size()
-	{
-		return 4;
-	}
-	public void from (byte[] data)
-	{
-		value = ByteBuffer.wrap(data).getInt();
-	}
-	public byte[] to()
-	{
-		return ByteBuffer.allocate(this.size()).putInt(value).array();
-	}
-}
-
-public class IAdd implements Instruction
-{
-	public void executeWith(MachineState state)
-	{
-		IntegerType a, b
-		StackAccess.pop(state, a);
-		StackAccess.pop(state, b);
-		StackAccess.push(state, a.add(b));
-		FlowControl.step(state);
-	}
-}
-
 public class SimpleVM implements VirtualMachine
 {
 	protected int pc;
@@ -42,11 +9,11 @@ public class SimpleVM implements VirtualMachine
 	protected byte[] data;
 
 
-	public void step(void)
+	public void step()
 	{
 		code[pc].executeOn(this);
 	}
-	public boolean good(void)
+	public boolean good()
 	{
 		return true;
 	}

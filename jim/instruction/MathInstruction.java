@@ -2,6 +2,7 @@ package jim.instruction;
 
 
 import virtualmachine.Instruction;
+import virtualmachine.MachineState;
 import virtualmachine.NumericType;
 import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
@@ -29,7 +30,7 @@ public abstract class MathInstruction implements Instruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Add(Class type)
+	public MathInstruction(Class type)
 	{
 		this.type = type;
 	}

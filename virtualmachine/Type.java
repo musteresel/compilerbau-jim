@@ -21,7 +21,7 @@ public interface Type
 	 * 
 	 * @return The size of the type
 	 * */
-	public abstract int size(void);
+	public abstract int size();
 
 
 	/** Every type must be able to construct itself from an array of bytes.
