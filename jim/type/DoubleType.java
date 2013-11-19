@@ -10,6 +10,12 @@ public class DoubleType implements NumericType
 	protected double value;
 
 
+	public DoubleType()
+	{
+		this.value = 0;
+	}
+
+
 	public DoubleType(double v)
 	{
 		this.value = v;

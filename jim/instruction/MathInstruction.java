@@ -46,8 +46,15 @@ public abstract class MathInstruction implements Instruction
 	 * */
 	public void executeWith(MachineState state)
 	{
-		NumericType a = (NumericType) this.type.newInstance();
-		NumericType b = (NumericType) this.type.newInstance();
+		NumericType a, b;
+		try
+		{
+			a	= (NumericType) this.type.newInstance();
+			b = (NumericType) this.type.newInstance();
+		} catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 		StackAccess.pop(state, a);
 		StackAccess.pop(state, b);
 		StackAccess.push(state, this.operate(a, b));

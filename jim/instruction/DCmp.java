@@ -5,8 +5,8 @@ import virtualmachine.Instruction;
 import virtualmachine.MachineState;
 import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
-import jim.instruction.DoubleType;
-import jim.instruction.IntegerType;
+import jim.type.DoubleType;
+import jim.type.IntegerType;
 
 
 /** Double compare instruction.
@@ -23,10 +23,12 @@ public class DCmp implements Instruction
 	 * */
 	public void executeWith(MachineState state)
 	{
-		DoubleType a, b;
+		DoubleType a = new DoubleType();
+		DoubleType b = new DoubleType();
 		StackAccess.pop(state, a);
 		StackAccess.pop(state, b);
-		double aD, aD;
+		double aD, bD;
+		int result;
 		aD = a.getDouble();
 		bD = b.getDouble();
 		if (aD == bD)
@@ -41,7 +43,7 @@ public class DCmp implements Instruction
 		{
 			result = 1;
 		}
-		IntegerType r = result;
+		IntegerType r = new IntegerType(result);
 		StackAccess.push(state, r);
 		FlowControl.step(state);
 	}

@@ -51,7 +51,14 @@ public abstract class Load implements Instruction
 	 * */
 	public void executeWith(MachineState state)
 	{
-		Type var = (Type) this.type.newInstance();
+		Type var;
+		try
+		{
+			var	= (Type) this.type.newInstance();
+		} catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 		FrameAccess.read(state, var, this.index);
 		StackAccess.push(state, var);
 		FlowControl.step(state);

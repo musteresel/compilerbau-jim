@@ -10,6 +10,12 @@ public class IntegerType implements NumericType
 	protected int value;
 
 
+	public IntegerType()
+	{
+		this.value = 0;
+	}
+
+
 	public IntegerType(int v)
 	{
 		this.value = v;
@@ -20,8 +26,8 @@ public class IntegerType implements NumericType
 	{
 		return this.value;
 	}
-	
-	
+
+
 	public int size()
 	{
 		return 4;

@@ -51,7 +51,14 @@ public abstract class Store implements Instruction
 	 * */
 	public void executeWith(MachineState state)
 	{
-		Type var = (Type) this.type.newInstance();
+		Type var;
+		try
+		{
+			var	= (Type) this.type.newInstance();
+		} catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 		StackAccess.pop(state, var);
 		FrameAccess.write(state, var, this.index);
 		FlowControl.step(state);
