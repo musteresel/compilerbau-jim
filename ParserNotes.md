@@ -48,3 +48,24 @@ String -> Iterate over chars
 Use of CharacterIterator worse than using charAt of String class
   source: http://stackoverflow.com/a/360930/1116364
 charAt is limited to Strings or more generaly CharSequnces.
+
+
+CHAR -> [TokenFactory..] -> Token
+
+do
+{
+nextChar <- getNextChar
+} while(factories->partOfToken(nextChar))
+token <- factories->token
+do
+{
+nextChar <- getNextChar
+} while(token->consume)
+
+
+Reader -> LineNumberReader -> NoCommentReader
+>>> Tokenizer (Word, Number, Label)
+
+
+CHAR <- input.read()
+
