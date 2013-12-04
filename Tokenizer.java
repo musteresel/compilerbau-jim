@@ -67,28 +67,26 @@ public class Tokenizer
 	 * */
 	public boolean hasToken()
 	{
-		Token currentToken = null;
-		while (this.token == null)
+		int nextFromReader;
+		int startLineNumber;
+		do
 		{
-			int nextFromReader = this.input.read();
+			nextFromReader = this.input.read();
 			if (nextFromReader == -1)
 			{
-				this.token = currentToken;
-				break;
+				return false;
 			}
-			char nextChar = (char) nextFromReader;
-			if (Character.isWhitespace(nextChar))
-			{
-				this.token = currenToken;
-				continue;
-			}
-			if (currentToken == null)
-			{
-				currenToken = new Token(this.input.getLineNumber());
-			}
-			currentToken.consume(nextChar);
-		}
-		return (this.token != null);
+		} while (Character.isWhitespace(nextFromReader));
+		// nextFromReader contains a non whitespace character
+		startLineNumber = this.input.getLineNumber();
+		do
+		{
+			writer.write(nextFromReader);
+			nextFromReader = this.input.read();
+		} while (nextFromReader != -1 && !Character.isWhitespace(nextFromReader));
+		// TODO Does every call to read return -1 after the first -1 result?
+		this.token = new Token(startLineNumber, writer.getBuffer());
+		return true;
 	}
 }
 
