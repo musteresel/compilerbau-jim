@@ -40,6 +40,23 @@ public class DoubleType implements NumericType
 	}
 
 
+	public boolean from(String text)
+	{
+		boolean success = false;
+		try
+		{
+			Double d = Double.valueOf(text);
+			this.value = d;
+			success = true;
+		}
+		catch (NumberFormatException e)
+		{
+			success = false;
+		}
+		return success;
+	}
+
+
 	public byte[] to()
 	{
 		return ByteBuffer.allocate(this.size()).putDouble(this.value).array();

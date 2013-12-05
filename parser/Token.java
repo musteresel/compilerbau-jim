@@ -27,5 +27,15 @@ public class Token extends String
 		super(buffer);
 		this.lineNumber = lineNumber;
 	}
+
+
+	/** Returns the line number.
+	 *
+	 * @return Line number on which this token was found.
+	 * */
+	public int getLineNumber()
+	{
+		return this.lineNumber;
+	}
 }
 

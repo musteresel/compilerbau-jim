@@ -96,13 +96,22 @@ public class ParserDraft
 			}
 			else
 			{
-				try
+				DoubleType d = new DoubleType();
+				IntegerType i = new IntegerType();
+				TypeEntity typeEntity = null;
+				if (d.from(token))
 				{
-					int value = Integer.decode(token);
-					NumberEntity numberEntity =	new NumberEntity(value);
-					parseEntities.addLast(numberEntity);
+					typeEntity = new TypeEntity(d);
 				}
-				catch (NumberFormatException e)
+				else if (i.from(token))
+				{
+					typeEntity = new TypeEntity(i);
+				}
+				if (typeEntity != null)
+				{
+					parseEntities.addLast(typeEntity);
+				}
+				else
 				{
 					// Not a number, must be a label
 					LabelReferenceEntity lre =

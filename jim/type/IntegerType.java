@@ -40,6 +40,20 @@ public class IntegerType implements NumericType
 	}
 
 
+	public boolean from(String text)
+	{
+		try
+		{
+			this.value = Integer.decode(text);
+			return true;
+		}
+		catch (NumberFormatException e)
+		{
+			return false;
+		}
+	}
+
+
 	public byte[] to()
 	{
 		return ByteBuffer.allocate(this.size()).putInt(this.value).array();

@@ -69,3 +69,21 @@ Reader -> LineNumberReader -> NoCommentReader
 
 CHAR <- input.read()
 
+
+
+-------------------------------------------------------------------------------
+
+Tokenizer -> Tokens
+-> Entitynizer -> Entities[Ins,LabelD,LabelR,Num] 
+-> (Dict, Entities[Ins,LabelR,Num])
+-> Resolver -> Entities[Ins,Num] -> Code
+
+
+for file in FILES:
+  ParserUnit u = Entitynizer(Tokenizer(FileReader))
+ParserUnit world = combineAll(ParserUnit)
+Entities resolved = Resolver(world)
+Code code, int entry = Compile(resolved)
+
+virtualmachine.load(code)
+virtualmachine.start(entry)

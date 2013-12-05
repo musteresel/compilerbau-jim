@@ -49,5 +49,15 @@ public interface Type
 	 * @return Byte array representing one instance of the type.
 	 * */
 	public abstract byte[] to();
+
+
+	/** Every type must be able to construct itself from a string representation.
+	 * 
+	 * The construction may fail, if the string is not in a correct format.
+	 *
+	 * @param text Textual representation of the type instance.
+	 * @return True if decoding succeeded, false otherwise.
+	 * */
+	public abstract boolean from(String text);
 }
 
