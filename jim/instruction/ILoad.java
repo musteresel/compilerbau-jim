@@ -12,7 +12,7 @@ public class ILoad extends Load
 	/** Default constructor forwarding index and IntegerType as
 	 * underlying type.
 	 * */
-	public ILoad(int index)
+	public ILoad(IntegerType index)
 	{
 		super(IntegerType.class, index);
 	}

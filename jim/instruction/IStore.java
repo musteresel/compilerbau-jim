@@ -12,7 +12,7 @@ public class IStore extends Store
 	/** Default constructor forwarding index and IntegerType as
 	 * underlying type.
 	 * */
-	public IStore(int index)
+	public IStore(IntegerType index)
 	{
 		super(IntegerType.class, index);
 	}

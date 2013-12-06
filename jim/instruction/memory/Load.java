@@ -7,6 +7,7 @@ import virtualmachine.Type;
 import virtualmachine.FrameAccess;
 import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
+import jim.type.IntegerType;
 
 
 /** Generic load instruction.
@@ -37,10 +38,10 @@ public abstract class Load implements Instruction
 	 * @param type The underlying type.
 	 * @param index The frame index from which something gets loaded.
 	 * */
-	public Load(Class type, int index)
+	public Load(Class type, IntegerType index)
 	{
 		this.type = type;
-		this.index = index;
+		this.index = index.getInt();
 	}
 
 

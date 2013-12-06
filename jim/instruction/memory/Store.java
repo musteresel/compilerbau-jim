@@ -7,6 +7,7 @@ import virtualmachine.Type;
 import virtualmachine.FrameAccess;
 import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
+import jim.type.IntegerType;
 
 
 /** Generic store instruction.
@@ -37,10 +38,10 @@ public abstract class Store implements Instruction
 	 * @param type The underlying type.
 	 * @param index The frame index to which something gets stored.
 	 * */
-	public Store(Class type, int index)
+	public Store(Class type, IntegerType index)
 	{
 		this.type = type;
-		this.index = index;
+		this.index = index.getInt();
 	}
 
 
