@@ -1,7 +1,7 @@
 package jim.instruction;
 
 
-import jim.instruction.Mul;
+import jim.instruction.math.Mul;
 import jim.type.IntegerType;
 
 

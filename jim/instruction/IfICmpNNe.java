@@ -1,8 +1,8 @@
 package jim.instruction;
 
 
-import jim.instruction.IfICmpN;
-import jim.type.IntegerType;
+import jim.instruction.branch.conditional.IfICmpN;
+import jim.instruction.branch.conditional.expression.Ne;
 
 
 /** Integer Not Equal branch instruction.
@@ -11,26 +11,9 @@ import jim.type.IntegerType;
  * */
 public class IfICmpNNe extends IfICmpN
 {
-	/** Implemented boolean expression.
-	 * */
-	protected static class Ne implements IfICmpN.BooleanExpression
-	{
-		/** Test whether integers a and b are not equal.
-		 *
-		 * @param a Left hand side.
-		 * @param b Right hand side.
-		 * @return (a != b)
-		 * */
-		public boolean evaluate(IntegerType a, IntegerType b)
-		{
-			return (a.getInt() != b.getInt());
-		}
-	}
-
-
 	/** Constructor forwarding destination to super class.
 	 *
-	 * An instance of the inner class Ne is forwarded as boolean
+	 * An instance of the class Ne is forwarded as boolean
 	 * expression, too.
 	 * */
 	public IfICmpNNe(int destination)

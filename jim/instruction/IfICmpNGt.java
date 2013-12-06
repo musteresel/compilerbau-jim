@@ -1,8 +1,8 @@
 package jim.instruction;
 
 
-import jim.instruction.IfICmpN;
-import jim.type.IntegerType;
+import jim.instruction.branch.conditional.IfICmpN;
+import jim.instruction.branch.conditional.expression.Gt;
 
 
 /** Integer Greater than branch instruction.
@@ -11,26 +11,9 @@ import jim.type.IntegerType;
  * */
 public class IfICmpNGt extends IfICmpN
 {
-	/** Implemented boolean expression.
-	 * */
-	protected static class Gt implements IfICmpN.BooleanExpression
-	{
-		/** Test whether integer a is greater than b.
-		 *
-		 * @param a Left hand side.
-		 * @param b Right hand side.
-		 * @return (a greater than b)
-		 * */
-		public boolean evaluate(IntegerType a, IntegerType b)
-		{
-			return (a.getInt() > b.getInt());
-		}
-	}
-
-
 	/** Constructor forwarding destination to super class.
 	 *
-	 * An instance of the inner class Gt is forwarded as boolean
+	 * An instance of the class Gt is forwarded as boolean
 	 * expression, too.
 	 * */
 	public IfICmpNGt(int destination)

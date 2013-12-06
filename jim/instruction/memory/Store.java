@@ -1,4 +1,4 @@
-package jim.instruction;
+package jim.instruction.memory;
 
 
 import virtualmachine.Instruction;
@@ -9,15 +9,15 @@ import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
 
 
-/** Generic load instruction.
+/** Generic store instruction.
  *
- * This instruction is the base of all load instructions. A concrete load
+ * This instruction is the base of all store instructions. A concrete store
  * instruction must have an underlying type and specify this type to this
  * classes constructor.
  * */
-public abstract class Load implements Instruction
+public abstract class Store implements Instruction
 {
-	/** The index to load from.
+	/** The index to store to.
 	 * */
 	protected int index;
 
@@ -35,19 +35,19 @@ public abstract class Load implements Instruction
 	 * @see #index
 	 *
 	 * @param type The underlying type.
-	 * @param index The frame index from which something gets loaded.
+	 * @param index The frame index to which something gets stored.
 	 * */
-	public Load(Class type, int index)
+	public Store(Class type, int index)
 	{
 		this.type = type;
 		this.index = index;
 	}
 
 
-	/** Implementation of a generic load instruction.
+	/** Implementation of a generic store instruction.
 	 *
-	 * A value of the underlying type is read from the frame index and
-	 * pushed onto the stack.
+	 * A value of the underlying type is popped from the stack and written
+	 * to the frame index specified.
 	 * */
 	public void executeWith(MachineState state)
 	{
@@ -59,8 +59,8 @@ public abstract class Load implements Instruction
 		{
 			throw new UnsupportedOperationException(e);
 		}
-		FrameAccess.read(state, var, this.index);
-		StackAccess.push(state, var);
+		StackAccess.pop(state, var);
+		FrameAccess.write(state, var, this.index);
 		FlowControl.step(state);
 	}
 }

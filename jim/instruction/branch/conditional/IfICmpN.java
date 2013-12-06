@@ -1,4 +1,4 @@
-package jim.instruction;
+package jim.instruction.branch.conditional;
 
 
 import virtualmachine.Instruction;
@@ -6,6 +6,7 @@ import virtualmachine.MachineState;
 import virtualmachine.StackAccess;
 import virtualmachine.FlowControl;
 import jim.type.IntegerType;
+import jim.instruction.branch.conditional.expression.BooleanExpression;
 
 
 /** Generic Integer Compare branch instruction.
@@ -15,26 +16,6 @@ import jim.type.IntegerType;
  * */
 public abstract class IfICmpN implements Instruction
 {
-	/** Boolean expression interface.
-	 *
-	 * This interface defines the neccessary method an object needs to
-	 * implement to act as an boolean expression for this instruction.
-	 * */
-	public interface BooleanExpression
-	{
-		/** Evaluation of the boolean expression.
-		 *
-		 * Feed two IntegerTypes to the boolean expression, returning
-		 * a boolean.
-		 *
-		 * @param a Left hand side value.
-		 * @param b Right hand side value.
-		 * @return Boolean result value.
-		 * */
-		public abstract boolean evaluate(IntegerType a, IntegerType b);
-	}
-
-
 	/** The destination to jump to if the expression is false.
 	 * */
 	protected int destination;

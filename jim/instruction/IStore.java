@@ -1,7 +1,7 @@
 package jim.instruction;
 
 
-import jim.instruction.Store;
+import jim.instruction.memory.Store;
 import jim.type.IntegerType;
 
 

@@ -1,7 +1,7 @@
 package jim.instruction;
 
 
-import jim.instruction.Add;
+import jim.instruction.math.Add;
 import jim.type.DoubleType;
 
 

@@ -1,4 +1,4 @@
-package jim.instruction;
+package jim.instruction.branch;
 
 
 import virtualmachine.Instruction;

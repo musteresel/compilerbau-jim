@@ -1,8 +1,8 @@
-package jim.instruction;
+package jim.instruction.math;
 
 
 import virtualmachine.NumericType;
-import jim.instruction.MathInstruction;
+import jim.instruction.math.MathInstruction;
 
 
 /** Generic multiplication instruction.
@@ -15,7 +15,7 @@ public abstract class Mul extends MathInstruction
 {
 	/** Constructor forwarding underlying types class to MathInstruction.
 	 *
-	 * @see jim.instruction.MathInstruction
+	 * @see jim.instruction.math.MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
@@ -29,7 +29,7 @@ public abstract class Mul extends MathInstruction
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
 	 * */
 	public NumericType operate(NumericType a, NumericType b)
 	{

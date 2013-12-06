@@ -1,39 +1,39 @@
-package jim.instruction;
+package jim.instruction.math;
 
 
 import virtualmachine.NumericType;
-import jim.instruction.MathInstruction;
+import jim.instruction.math.MathInstruction;
 
 
-/** Generic add instruction.
+/** Generic divide instruction.
  *
- * This instruction is the base of all add instructions. A concrete add
+ * This instruction is the base of all div instructions. A concrete div
  * instruction must have an underlying type and specify this type to this
  * classes constructor.
  * */
-public abstract class Add extends MathInstruction
+public abstract class Div extends MathInstruction
 {
 	/** Constructor forwarding underlying types class to MathInstruction.
 	 *
-	 * @see jim.instruction.MathInstruction
+	 * @see jim.instruction.math.MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Add(Class type)
+	public Div(Class type)
 	{
 		super(type);
 	}
 
 
-	/** Concrete add operation.
+	/** Concrete div operation.
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
 	 * */
 	public NumericType operate(NumericType a, NumericType b)
 	{
-		return a.add(b);
+		return a.div(b);
 	}
 }
 

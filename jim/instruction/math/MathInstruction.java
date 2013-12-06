@@ -1,4 +1,4 @@
-package jim.instruction;
+package jim.instruction.math;
 
 
 import virtualmachine.Instruction;
