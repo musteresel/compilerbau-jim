@@ -74,10 +74,10 @@ public class ParseUnit
 		{
 			Token token = tokenizer.nextToken();
 			// Check whether the token is an instruction.
-			if (instructionMap.containsKey(token))
+			if (instructionMap.containsKey(token.toString()))
 			{
 				lastInstructionStub =
-					new InstructionStub(instructionMap.get(token));
+					new InstructionStub(instructionMap.get(token.toString()));
 				// If the previous token was a label declaration, map this
 				// instructions address to the label.
 				if (nextMapping != null)
@@ -229,6 +229,10 @@ public class ParseUnit
 			{
 				evaluationFailed = true;
 			}
+			else
+			{
+				evaluatedInstructions.add(evaluatedInstruction);
+			}
 		}
 		if (evaluationFailed)
 		{
@@ -241,6 +245,12 @@ public class ParseUnit
 			return evaluatedInstructions.toArray(
 					new Instruction[evaluatedInstructions.size()]);
 		}
+	}
+
+
+	public ParseFailure[] get_failures()
+	{
+		return this.failures.toArray(new ParseFailure[this.failures.size()]);
 	}
 }
 
