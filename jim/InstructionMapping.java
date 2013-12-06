@@ -74,6 +74,8 @@ public class InstructionMapping
 		this.m.put("dreturn", DReturn.class);
 
 		this.m.put("halt", Halt.class);
+		this.m.put("iprint", IPrint.class);
+		this.m.put("dprint", DPrint.class);
 	}
 
 
