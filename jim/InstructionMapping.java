@@ -60,6 +60,8 @@ public class InstructionMapping
 		this.m.put("if!le", IfNLe.class);
 		this.m.put("if!ge", IfNGe.class);
 		this.m.put("if!gt", IfNGt.class);
+
+		this.m.put("goto", Goto.class);
 	}
 
 
