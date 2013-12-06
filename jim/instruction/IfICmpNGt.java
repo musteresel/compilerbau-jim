@@ -3,6 +3,7 @@ package jim.instruction;
 
 import jim.instruction.branch.conditional.IfICmpN;
 import jim.instruction.branch.conditional.expression.Gt;
+import jim.type.IntegerType;
 
 
 /** Integer Greater than branch instruction.
@@ -16,7 +17,7 @@ public class IfICmpNGt extends IfICmpN
 	 * An instance of the class Gt is forwarded as boolean
 	 * expression, too.
 	 * */
-	public IfICmpNGt(int destination)
+	public IfICmpNGt(IntegerType destination)
 	{
 		super(new Gt(), destination);
 	}

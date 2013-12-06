@@ -4,6 +4,7 @@ package jim.instruction.branch;
 import virtualmachine.Instruction;
 import virtualmachine.MachineState;
 import virtualmachine.FlowControl;
+import jim.type.IntegerType;
 
 
 /** Simple Goto instruction.
@@ -27,9 +28,9 @@ public class Goto implements Instruction
 	 *
 	 * @param destination The destination of the goto.
 	 * */
-	public Goto(int destination)
+	public Goto(IntegerType destination)
 	{
-		this.destination = destination;
+		this.destination = destination.getInt();
 	}
 
 

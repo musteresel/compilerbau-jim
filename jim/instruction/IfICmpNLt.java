@@ -3,6 +3,7 @@ package jim.instruction;
 
 import jim.instruction.branch.conditional.IfICmpN;
 import jim.instruction.branch.conditional.expression.Lt;
+import jim.type.IntegerType;
 
 
 /** Integer Less than branch instruction.
@@ -16,7 +17,7 @@ public class IfICmpNLt extends IfICmpN
 	 * An instance of the class Lt is forwarded as boolean
 	 * expression, too.
 	 * */
-	public IfICmpNLt(int destination)
+	public IfICmpNLt(IntegerType destination)
 	{
 		super(new Lt(), destination);
 	}

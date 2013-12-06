@@ -31,10 +31,10 @@ public abstract class IfICmpN implements Instruction
 	 * @param expression The expression to evaluate.
 	 * @param destination The destination to eventually jump to.
 	 * */
-	public IfICmpN(BooleanExpression expression, int destination)
+	public IfICmpN(BooleanExpression expression, IntegerType destination)
 	{
 		this.expression = expression;
-		this.destination = destination;
+		this.destination = destination.getInt();
 	}
 
 

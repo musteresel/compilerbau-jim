@@ -3,6 +3,7 @@ package jim.instruction;
 
 import jim.instruction.branch.conditional.IfICmpN;
 import jim.instruction.branch.conditional.expression.Ne;
+import jim.type.IntegerType;
 
 
 /** Integer Not Equal branch instruction.
@@ -16,7 +17,7 @@ public class IfICmpNNe extends IfICmpN
 	 * An instance of the class Ne is forwarded as boolean
 	 * expression, too.
 	 * */
-	public IfICmpNNe(int destination)
+	public IfICmpNNe(IntegerType destination)
 	{
 		super(new Ne(), destination);
 	}
