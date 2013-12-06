@@ -208,5 +208,37 @@ public class ParseUnit
 	{
 		return this.referenceMap.get(reference);
 	}
+
+
+	/** Evaluate this unit.
+	 *
+	 * Evaluationg returns an array of instructions, or null if anything
+	 * fails.
+	 *
+	 * @return Array of instructions, or null in case of any failure.
+	 * */
+	public Instruction[] evaluate()
+	{
+		List<Instruction> evaluatedInstructions = new LinkedList<Instruction>();
+		for (InstructionStub instruction : this.instructions)
+		{
+			Instruction evaluatedInstruction = instruction.evaluate_from(this);
+			if (evaluatedInstruction == null)
+			{
+				evaluationFailed = true;
+			}
+		}
+		if (evaluationFailed)
+		{
+			this.log_failure("Unit evaluation failed due to " +
+					"failed instruction evaluation.");
+			return null;
+		}
+		else
+		{
+			return evaluatedInstructions.toArray(
+					new Instruction[evaluatedInstructions.length()]);
+		}
+	}
 }
 
