@@ -41,7 +41,7 @@ public class ReferencedValueStub implements ValueStub
 	 * */
 	public Type evaluate_from(ParseUnit unit)
 	{
-		Type value = unit.evaluate_reference(this.reference);
+		Type value = unit.evaluate_reference(this.reference.toString());
 		if (value == null)
 		{
 			unit.log_failure(new ParseFailure("Could not evaluate " +

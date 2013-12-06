@@ -8,8 +8,13 @@ package parser;
  *
  * @see parser.Tokenizer
  * */
-public class Token extends String
+public class Token
 {
+	/** String representation of the token.
+	 * */
+	protected final String text;
+
+
 	/** Protected member variable to store the line number.
 	 *
 	 * The number of the line where the token starts (and usually ends).
@@ -24,7 +29,7 @@ public class Token extends String
 	 * */
 	public Token(int lineNumber, StringBuffer buffer)
 	{
-		super(buffer);
+		this.text = new String(buffer);
 		this.lineNumber = lineNumber;
 	}
 
@@ -36,6 +41,16 @@ public class Token extends String
 	public int getLineNumber()
 	{
 		return this.lineNumber;
+	}
+
+
+	/** Return string representation.
+	 *
+	 * @return Token string.
+	 * */
+	public String toString()
+	{
+		return this.text;
 	}
 }
 

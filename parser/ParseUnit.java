@@ -37,7 +37,7 @@ public class ParseUnit
 	 *
 	 * This map contains the declared mappings of the parse unit.
 	 * */
-	protected Map<Token, Type> referenceMap;
+	protected Map<String, Type> referenceMap;
 
 
 	/** List of parse failures.
@@ -62,7 +62,7 @@ public class ParseUnit
 			Tokenizer tokenizer)
 	{
 		this.instructions = new LinkedList<InstructionStub>();
-		this.referenceMap = new HashMap<Token, Type>();
+		this.referenceMap = new HashMap<String, Type>();
 		int instructionCounter = 0;
 		// Token to be used in the next mapping.
 		Token nextMapping = null;
@@ -81,7 +81,7 @@ public class ParseUnit
 				// instructions address to the label.
 				if (nextMapping != null)
 				{
-					this.referenceMap.put(nextMapping,
+					this.referenceMap.put(nextMapping.toString(),
 							new IntegerType(instructionCounter));
 					nextMapping = null;
 				}
@@ -89,7 +89,7 @@ public class ParseUnit
 				this.instructions.add(lastInstructionStub);
 			}
 			// Check whether token is a label declaration.
-			else if (token.endsWith(":"))
+			else if (token.toString().endsWith(":"))
 			{
 				// In case the previous token was a label declaration, there
 				// is a parse failure.
@@ -115,11 +115,11 @@ public class ParseUnit
 				// Check if token can be converted to any known value type.
 				IntegerType iType = new IntegerType();
 				DoubleType dType = new DoubleType();
-				if (iType.from(token))
+				if (iType.from(token.toString()))
 				{
 					type = iType;
 				}
-				else if (dType.from(token))
+				else if (dType.from(token.toString()))
 				{
 					type = dType;
 				}
@@ -130,7 +130,7 @@ public class ParseUnit
 					// type to the label.
 					if (nextMapping != null)
 					{
-						this.referenceMap.put(nextMapping, type);
+						this.referenceMap.put(nextMapping.toString(), type);
 						nextMapping = null;
 					}
 					// The type is probably used as a parameter to an instruction.
@@ -205,7 +205,7 @@ public class ParseUnit
 	 * @param reference The reference to look up.
 	 * @return Type instance mapped to the reference, or null for no mapping.
 	 * */
-	public Type evaluate_reference(Token reference)
+	public Type evaluate_reference(String reference)
 	{
 		return this.referenceMap.get(reference);
 	}
