@@ -1,0 +1,28 @@
+
+value: 3.5
+counter: 10
+
+
+some_compare:
+ldc 1.0
+ldc 2.5
+dcmp
+if!ne some_compare
+
+
+
+function:
+ldc 5
+ldc 10
+iadd
+ireturn
+
+main:
+imst
+cup 0 function
+halt
+
+label: 1.0 dstore 5
+otherlabel: 42
+iadd iadd iadd isub
+if_icmp!eq otherlabel

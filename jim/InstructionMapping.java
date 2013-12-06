@@ -72,6 +72,8 @@ public class InstructionMapping
 
 		this.m.put("dmst", DMst.class);
 		this.m.put("dreturn", DReturn.class);
+
+		this.m.put("halt", Halt.class);
 	}
 
 
