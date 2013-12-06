@@ -61,6 +61,7 @@ public class ParseUnit
 			Map<String, Class<Instruction>> instructionMap,
 			Tokenizer tokenizer)
 	{
+		this.failures = new LinkedList<ParseFailure>();
 		this.instructions = new LinkedList<InstructionStub>();
 		this.referenceMap = new HashMap<String, Type>();
 		int instructionCounter = 0;
@@ -179,7 +180,6 @@ public class ParseUnit
 			}
 			// Continue with next token.
 		}
-		this.failures = new LinkedList<ParseFailure>();
 	}
 
 
