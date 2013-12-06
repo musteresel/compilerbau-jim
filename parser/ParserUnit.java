@@ -1,14 +1,64 @@
 package parser;
 
 
-public class ParserUnit
+import java.util.List;
+import java.util.Map;
+import java.util.LinkedList;
+import java.util.HashMap;
+import virtualmachine.Type;
+import jim.type.IntegerType;
+import jim.type.DoubleType;
+import parser.Tokenizer;
+import parser.Token;
+import parser.InstructionStub;
+import parser.ValueStub;
+import parser.EvaluatedValueStub;
+import parser.ReferencedValueStub;
+import parser.ParseFailure;
+
+
+/** A unit to be parsed.
+ *
+ * An instance of this class represents a parsed unit, with possible failures.
+ * The token source must be provided to the constructor.
+ * */
+public class ParseUnit
 {
+	/** List of instruction stubs.
+	 *
+	 * Ordered list of instruction stubs, in the same order as they appear
+	 * in the input token stream.
+	 * */
 	protected List<InstructionStub> instructions;
+
+
+	/** Mapping of labels to type instances.
+	 *
+	 * This map contains the declared mappings of the parse unit.
+	 * */
 	protected Map<Token, Type> referenceMap;
+
+
+	/** List of parse failures.
+	 *
+	 * This list contains failures that happened during parsing, in order of
+	 * their occurence during parsing.
+	 * */
 	protected List<ParseFailure> failures;
 
 
-	public ParseUnit(Map<String, Class> instructionMap, Tokenizer tokenizer)
+	/** Construct a parse unit.
+	 *
+	 * To construct a parse unit - or parse an unit - one must supply a
+	 * mapping of String values to instruction classes and a tokenizer
+	 * as the source to parse.
+	 *
+	 * @param instructionMap Mapping of instruction names to their classes.
+	 * @param tokenizer Source to parse.
+	 * */
+	public ParseUnit(
+			Map<String, Class<Instruction>> instructionMap,
+			Tokenizer tokenizer)
 	{
 		this.instructions = new LinkedList<InstructionStub>();
 		this.referenceMap = new HashMap<Token, Type>();
@@ -132,13 +182,28 @@ public class ParserUnit
 	}
 
 
+	/** Central failure logging method.
+	 *
+	 * This method is used by any step of the parsing that may fail.
+	 * The failure is then logged and the parsing proceeds the best it
+	 * can.
+	 *
+	 * @param failure The new failure to log.
+	 * */
 	public void log_failure(ParseFailure failure)
 	{
 		this.failures.addLast(failure);
 	}
 
 
-
+	/** Access to this units label mapping.
+	 *
+	 * This method provides access to the mapping of labels to values. This
+	 * is used during evaluation of this unit.
+	 *
+	 * @param reference The reference to look up.
+	 * @return Type instance mapped to the reference, or null for no mapping.
+	 * */
 	public Type evaluate_reference(Token reference)
 	{
 		return this.referenceMap.get(reference);
