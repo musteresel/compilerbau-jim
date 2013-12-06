@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.LinkedList;
 import java.util.HashMap;
 import virtualmachine.Type;
+import virtualmachine.Instruction;
 import jim.type.IntegerType;
 import jim.type.DoubleType;
 import parser.Tokenizer;
@@ -80,12 +81,12 @@ public class ParseUnit
 				// instructions address to the label.
 				if (nextMapping != null)
 				{
-					this,referenceMap.put(nextMapping,
+					this.referenceMap.put(nextMapping,
 							new IntegerType(instructionCounter));
 					nextMapping = null;
 				}
 				instructionCounter++;
-				this.instructions.addLast(lastInstructionStub);
+				this.instructions.add(lastInstructionStub);
 			}
 			// Check whether token is a label declaration.
 			else if (token.endsWith(":"))
@@ -150,7 +151,7 @@ public class ParseUnit
 						this.log_failure(new ParseFailure("Label declaration of " +
 									nextMapping + " (Line " +
 									Integer.toString(nextMapping.getLineNumber()) +
-									") tries to use reference " + token "."));
+									") tries to use reference " + token + "."));
 						nextMapping = null;
 					}
 					// The reference is probably a parameter to an instruction.
@@ -192,7 +193,7 @@ public class ParseUnit
 	 * */
 	public void log_failure(ParseFailure failure)
 	{
-		this.failures.addLast(failure);
+		this.failures.add(failure);
 	}
 
 
@@ -220,6 +221,7 @@ public class ParseUnit
 	public Instruction[] evaluate()
 	{
 		List<Instruction> evaluatedInstructions = new LinkedList<Instruction>();
+		boolean evaluationFailed = false;
 		for (InstructionStub instruction : this.instructions)
 		{
 			Instruction evaluatedInstruction = instruction.evaluate_from(this);
@@ -230,14 +232,14 @@ public class ParseUnit
 		}
 		if (evaluationFailed)
 		{
-			this.log_failure("Unit evaluation failed due to " +
-					"failed instruction evaluation.");
+			this.log_failure(new ParseFailure("Unit evaluation failed due to " +
+					"failed instruction evaluation."));
 			return null;
 		}
 		else
 		{
 			return evaluatedInstructions.toArray(
-					new Instruction[evaluatedInstructions.length()]);
+					new Instruction[evaluatedInstructions.size()]);
 		}
 	}
 }

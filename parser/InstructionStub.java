@@ -3,6 +3,8 @@ package parser;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.ListIterator;
+import java.lang.reflect.Constructor;
 import virtualmachine.Instruction;
 import virtualmachine.Type;
 import parser.ValueStub;
@@ -52,7 +54,7 @@ public class InstructionStub
 	 * */
 	public void push_parameter(ValueStub parameter)
 	{
-		this.parameters.addLast(parameter);
+		this.parameters.add(parameter);
 	}
 
 
@@ -68,7 +70,7 @@ public class InstructionStub
 	 * */
 	public Instruction evaluate_from(ParseUnit unit)
 	{
-		Type[] evaluatedParameters = new Type[this.parameters.length()];
+		Type[] evaluatedParameters = new Type[this.parameters.size()];
 		ListIterator<ValueStub> iterator = this.parameters.listIterator();
 		boolean evaluationFailed = false;
 		// Iterate over parameters
@@ -96,15 +98,16 @@ public class InstructionStub
 		// All parameters have been successfully evaluated.
 		else
 		{
-		  Constructor<Instruction>[] constructors =
+		  Constructor[] constructors =
 				this.instruction.getConstructors();
 			// Iterate over available constructors to find a matching one.
-			for (Constructor<Instruction> constructor : constructors)
+			for (Constructor constructor : constructors)
 			{
 				try
 				{
 					// If constructor could create a new instance, evaluation succeeded.
-					return constructor.newInstance(evaluatedParameters);
+					return (Instruction) constructor.newInstance(
+							(Object[]) evaluatedParameters);
 				}
 				catch (Exception e)
 				{

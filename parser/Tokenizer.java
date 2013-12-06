@@ -3,6 +3,8 @@ package parser;
 
 import java.io.LineNumberReader;
 import java.io.Reader;
+import java.io.LineNumberReader;
+import java.io.StringWriter;
 import parser.Token;
 
 
@@ -35,7 +37,7 @@ public class Tokenizer
 	{
 		if (reader instanceof LineNumberReader)
 		{
-			this.input = reader;
+			this.input = (LineNumberReader) reader;
 		}
 		else
 		{
@@ -78,6 +80,7 @@ public class Tokenizer
 			}
 		} while (Character.isWhitespace(nextFromReader));
 		// nextFromReader contains a non whitespace character
+		StringWriter writer = new StringWriter();
 		startLineNumber = this.input.getLineNumber();
 		do
 		{
