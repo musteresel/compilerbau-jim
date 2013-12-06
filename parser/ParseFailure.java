@@ -20,5 +20,11 @@ public class ParseFailure
 	{
 		this.message = message;
 	}
+
+
+	public String toString()
+	{
+		return this.message;
+	}
 }
 
