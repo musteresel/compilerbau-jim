@@ -29,7 +29,7 @@ public class InstructionStub
 	 * This is used to find a suitable constructor and build a new instance of
 	 * this instruction class on evaluation.
 	 * */
-	protected Class<Instruction> instruction;
+	protected Class<? extends Instruction> instruction;
 
 
 	/** Constructor.
@@ -38,7 +38,7 @@ public class InstructionStub
 	 *
 	 * @param instruction The class of the represented instruction.
 	 * */
-	public InstructionStub(Class<Instruction> instruction)
+	public InstructionStub(Class<? extends Instruction> instruction)
 	{
 		this.instruction = instruction;
 		this.parameters = new LinkedList<ValueStub>();

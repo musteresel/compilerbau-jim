@@ -58,7 +58,7 @@ public class ParseUnit
 	 * @param tokenizer Source to parse.
 	 * */
 	public ParseUnit(
-			Map<String, Class<Instruction>> instructionMap,
+			Map<String, Class<? extends Instruction>> instructionMap,
 			Tokenizer tokenizer)
 	{
 		this.failures = new LinkedList<ParseFailure>();
