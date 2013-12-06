@@ -82,7 +82,7 @@ public class ParseUnit
 				// instructions address to the label.
 				if (nextMapping != null)
 				{
-					this.referenceMap.put(nextMapping.toString(),
+					this.map_label(nextMapping,
 							new IntegerType(instructionCounter));
 					nextMapping = null;
 				}
@@ -131,7 +131,7 @@ public class ParseUnit
 					// type to the label.
 					if (nextMapping != null)
 					{
-						this.referenceMap.put(nextMapping.toString(), type);
+						this.map_label(nextMapping, type);
 						nextMapping = null;
 					}
 					// The type is probably used as a parameter to an instruction.
@@ -180,6 +180,21 @@ public class ParseUnit
 			}
 			// Continue with next token.
 		}
+	}
+
+
+	/** Add a mapping for the given token.
+	 *
+	 * This removes the last character (the ":") from the tokens text
+	 * and maps the new string to the given type.
+	 *
+	 * @param label The token to map.
+	 * @param type The type to be mapped.
+	 * */
+	protected void map_label(Token label, Type type)
+	{
+		String text = label.toString();
+		this.referenceMap.put(text.substring(0, text.length() - 1), type);
 	}
 
 
