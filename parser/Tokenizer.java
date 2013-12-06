@@ -1,6 +1,7 @@
 package parser;
 
 
+import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.io.LineNumberReader;
@@ -73,7 +74,14 @@ public class Tokenizer
 		int startLineNumber;
 		do
 		{
-			nextFromReader = this.input.read();
+			try
+			{
+				nextFromReader = this.input.read();
+			}
+			catch (IOException e)
+			{
+				nextFromReader = -1;
+			}
 			if (nextFromReader == -1)
 			{
 				return false;
@@ -85,7 +93,14 @@ public class Tokenizer
 		do
 		{
 			writer.write(nextFromReader);
-			nextFromReader = this.input.read();
+			try
+			{
+				nextFromReader = this.input.read();
+			}
+			catch (IOException e)
+			{
+				nextFromReader = -1;
+			}
 		} while (nextFromReader != -1 && !Character.isWhitespace(nextFromReader));
 		// TODO Does every call to read return -1 after the first -1 result?
 		this.token = new Token(startLineNumber, writer.getBuffer());
