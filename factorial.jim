@@ -1,0 +1,24 @@
+input_number: 5
+
+factorial:
+iload 8
+if!eq not_null
+ldc 1
+ireturn
+not_null:
+imst
+ldc 1
+iload 8
+isub
+cup 4 factorial
+iload 8
+imul
+ireturn
+
+
+main:
+imst
+ldc input_number
+cup 4 factorial
+halt
+
