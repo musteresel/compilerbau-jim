@@ -41,6 +41,8 @@ public class InstructionMapping
 		this.m.put("dstore", DStore.class);
 		this.m.put("dload", DLoad.class);
 
+		this.m.put("ldc", Ldc.class);
+
 
 		this.m.put("dcmp", DCmp.class);
 
