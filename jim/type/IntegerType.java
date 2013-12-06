@@ -54,6 +54,12 @@ public class IntegerType implements NumericType
 	}
 
 
+	public String toString()
+	{
+		return "IntegerType[" + Integer.toString(this.value) + "]";
+	}
+
+
 	public byte[] to()
 	{
 		return ByteBuffer.allocate(this.size()).putInt(this.value).array();

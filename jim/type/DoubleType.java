@@ -57,6 +57,12 @@ public class DoubleType implements NumericType
 	}
 
 
+	public String toString()
+	{
+		return "DoubleType[" + Double.toString(this.value) + "]";
+	}
+
+
 	public byte[] to()
 	{
 		return ByteBuffer.allocate(this.size()).putDouble(this.value).array();

@@ -59,5 +59,12 @@ public interface Type
 	 * @return True if decoding succeeded, false otherwise.
 	 * */
 	public abstract boolean from(String text);
+
+
+	/** Every type should be printable.
+	 *
+	 * @return Textual representation.
+	 * */
+	public abstract String toString();
 }
 
