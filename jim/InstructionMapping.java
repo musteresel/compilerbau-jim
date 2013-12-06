@@ -62,6 +62,16 @@ public class InstructionMapping
 		this.m.put("if!gt", IfNGt.class);
 
 		this.m.put("goto", Goto.class);
+		this.m.put("cup", Cup.class);
+
+		this.m.put("mst", Mst.class);
+		this.m.put("return", Return.class);
+
+		this.m.put("imst", IMst.class);
+		this.m.put("ireturn", IReturn.class);
+
+		this.m.put("dmst", DMst.class);
+		this.m.put("dreturn", DReturn.class);
 	}
 
 
