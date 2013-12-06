@@ -1,0 +1,25 @@
+
+
+max:
+dload 8
+dload 16
+dcmp
+ldc -1
+if_icmp!eq second_arg
+dload 8
+goto end
+second_arg:
+dload 16
+end:
+dreturn
+
+
+main:
+dmst
+ldc 5.0
+ldc 2.0
+cup 16 max
+dprint
+ldc 1
+halt
+

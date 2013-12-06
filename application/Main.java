@@ -23,19 +23,22 @@ public class Main
 		InstructionMapping jimMap = new InstructionMapping();
 		ParseUnit unit = new ParseUnit(jimMap.get_mapping(), tokenizer);
 		Type answer = unit.evaluate_reference("main");
-		System.out.println(answer);
-		Instruction[] code = unit.evaluate();
-		if (code != null)
+		if (answer == null)
 		{
-			System.out.println(Integer.toString(code.length));
+			System.out.println("No main label!");
+			return;
 		}
-		for (ParseFailure f : unit.get_failures())
+		Instruction[] code = unit.evaluate();
+		if (code == null)
 		{
-			System.out.println(f);
+			for (ParseFailure f : unit.get_failures())
+			{
+				System.out.println(f);
+			}
+			return;
 		}
 		IntegerType entry = (IntegerType) answer;
 		VM vm = new VM(code, entry.getInt());
-
 		while (vm.good())
 		{
 			vm.step();
