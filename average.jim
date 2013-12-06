@@ -1,0 +1,19 @@
+
+
+average:
+ldc 2.0
+dload 8
+dload 16
+dadd
+ddiv
+dreturn
+
+
+main:
+dmst
+ldc 3.0
+ldc 5.5
+cup 16 average
+dprint
+ldc 1
+halt
