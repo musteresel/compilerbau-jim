@@ -3,32 +3,52 @@ package parser;
 
 public class ParserUnit
 {
-	protected Entity[] entities;
-	public ParserUnit(Map<String, Class> instructionMap, Tokenizer tokenizer)
+	protected List<InstructionStub> instructions;
+	protected Map<Token, Type> referenceMap;
+	protected List<ParseFailure> failures;
+
+
+	public ParseUnit(Map<String, Class> instructionMap, Tokenizer tokenizer)
 	{
-		List<Entity> parseEntities = new LinkedList<Entity>();
+		this.instructions = new LinkedList<InstructionStub>();
+		this.referenceMap = new HashMap<Token, Type>();
 		int instructionCounter = 0;
+		Token nextMapping = null;
+		InstructionStub lastInstructionStub = null;
 		while (tokenizer.hasToken())
 		{
 			Token token = tokenizer.nextToken();
-			Entity nextEntity = null;
 			if (instructionMap.containsKey(token))
 			{
-				nextEntity = new InstructionEntity(
-						instructionCounter,
-						instructionMap.get(token),
-						token.getLineNumber());
+				lastInstructionStub =
+					new InstructionStub(instructionMap.get(token));
+				if (nextMapping != null)
+				{
+					this,referenceMap.put(nextMapping,
+							new IntegerType(instructionCounter));
+					nextMapping = null;
+				}
 				instructionCounter++;
+				this.instructions.addLast(lastInstructionStub);
 			}
 			else if (token.endsWith(":"))
 			{
-				nextEntity = new LabelDeclarationEntity(token);
+				if (nextMapping != null)
+				{
+					this.log_failure(new ParseFailure("Label declaration of " +
+								token + " (Line " + Integer.toString(token.getLineNumber()) +
+								") after declaration of " + nextMapping + " (Line " +
+								Integer.toString(nextMapping.getLineNumber()) + ")."));
+				}
+				nextMapping = token;
+				lastInstructionStub = null;
 			}
 			else
 			{
-				DoubleType dType = new DoubleType();
-				IntegerType iType = new IntegerType();
+				ValueStub valueStub = null;
 				Type type = null;
+				IntegerType iType = new IntegerType();
+				DoubleType dType = new DoubleType();
 				if (iType.from(token))
 				{
 					type = iType;
@@ -39,29 +59,61 @@ public class ParserUnit
 				}
 				if (type != null)
 				{
-					nextEntity = new TypeEntity(type);
+					if (nextMapping != null)
+					{
+						this.referenceMap.put(nextMapping, type);
+						nextMapping = null;
+					}
+					else
+					{
+						valueStub = new EvaluatedValueStub(type);
+					}
+
 				}
 				else
 				{
-					// Not a number, must be label reference
-					nextEntity = new LabelReferenceEntity(token);
+					if (nextMapping != null)
+					{
+						this.log_failure(new ParseFailure("Label declaration of " +
+									nextMapping + " (Line " +
+									Integer.toString(nextMapping.getLineNumber()) +
+									") tries to use reference " + token "."));
+						nextMapping = null;
+					}
+					else
+					{
+						valueStub = new ReferencedValueStub(token);
+					}
+				}
+				if (valueStub != null)
+				{
+					if (lastInstructionStub != null)
+					{
+						lastInstructionStub.push_parameter(valueStub);
+					}
+					else
+					{
+						this.log_failure(new ParseFailure("Orphan token at line " +
+									Integer.toString(token.getLineNumber()) + ": " +
+									token + "."));
+					}
 				}
 			}
-			parseEntities.addLast(nextEntity);
 		}
-		/*
-		ListIterator<Entity> iterator = parseEntities.listIterator();
-		while (iterator.hasNext())
-		{
-			Entity entity = iterator.next();
-			if (entity instanceof LabelDeclarationEntity)
-			{
-				// TODO
-				iterator.remove();
-			}
-		}
-		*/
-		this.entities = parseEntities.toArray();
+		this.failures = new LinkedList<ParseFailure>();
+	}
+
+
+	public void log_failure(ParseFailure failure)
+	{
+		this.failures.addLast(failure);
+	}
+
+
+
+	public Type evaluate_reference(Token reference)
+	{
+		return this.referenceMap.get(reference);
 	}
 }
 
