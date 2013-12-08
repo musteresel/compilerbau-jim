@@ -7,7 +7,7 @@ import virtualmachine.FlowControl;
 
 public class Halt implements Instruction
 {
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		FlowControl.jump(state,-42);
 	}

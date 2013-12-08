@@ -46,7 +46,7 @@ public class ReferencedValueStub implements ValueStub
 		{
 			unit.log_failure(new ParseFailure("Could not evaluate " +
 						this.reference + " on line " +
-						Integer.toString(this.reference.getLineNumber()) + "."));
+						Integer.toString(this.reference.get_linenumber()) + "."));
 		}
 		return value;
 	}

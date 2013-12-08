@@ -36,7 +36,7 @@ public abstract class BaseReturn implements Instruction
 
 	/** Return from function.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		if (this.returnType != null)
 		{
@@ -50,8 +50,8 @@ public abstract class BaseReturn implements Instruction
 		IntegerType markPointer = new IntegerType();
 		FrameAccess.read(state, markPointer, 0);
 		FrameAccess.read(state, returnAddress, 4);
-		file.write_register(FrameAccess.get_MP_id(), markPointer.getInt());
-		file.write_register(FlowControl.get_PC_id(), returnAddress.getInt());
+		file.write_register(FrameAccess.get_MP_id(), markPointer.get_int());
+		file.write_register(FlowControl.get_PC_id(), returnAddress.get_int());
 		FlowControl.step(state);
 	}
 }

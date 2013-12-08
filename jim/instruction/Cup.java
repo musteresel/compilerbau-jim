@@ -33,8 +33,8 @@ public class Cup implements Instruction
 	 * */
 	public Cup(IntegerType parameterSize, IntegerType destination)
 	{
-		this.parameterSize = parameterSize.getInt();
-		this.destination = destination.getInt();
+		this.parameterSize = parameterSize.get_int();
+		this.destination = destination.get_int();
 	}
 
 
@@ -43,7 +43,7 @@ public class Cup implements Instruction
 	 * First, calculate new markpointer. With new markpointer set, store
 	 * return address at offset 4 (offset 0 is the old markpointer).
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		int newMp = state.get_registerfile().read_register(StackAccess.get_SP_id());
 		newMp -= (this.parameterSize + 4 + 4);

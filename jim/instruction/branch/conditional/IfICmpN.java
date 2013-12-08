@@ -34,7 +34,7 @@ public abstract class IfICmpN implements Instruction
 	public IfICmpN(BooleanExpression expression, IntegerType destination)
 	{
 		this.expression = expression;
-		this.destination = destination.getInt();
+		this.destination = destination.get_int();
 	}
 
 
@@ -44,7 +44,7 @@ public abstract class IfICmpN implements Instruction
 	 * a boolean value. If the result is false, a jump to the destination is
 	 * executed, otherwise a step to the next instruction requested.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		IntegerType a = new IntegerType();
 		IntegerType b = new IntegerType();

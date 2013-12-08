@@ -22,7 +22,7 @@ public class DoubleType implements NumericType
 	}
 
 
-	public double getDouble()
+	public double get_double()
 	{
 		return this.value;
 	}

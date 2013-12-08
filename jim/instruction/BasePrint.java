@@ -18,7 +18,7 @@ public abstract class BasePrint implements Instruction
 	}
 
 
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		StackAccess.pop(state, this.type);
 		System.out.println(this.type);

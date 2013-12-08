@@ -43,7 +43,7 @@ public abstract class BaseMst implements Instruction
 	 * push the current mark pointer on the stack. Last reserve space for
 	 * the return address.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		if (this.returnType != null)
 		{

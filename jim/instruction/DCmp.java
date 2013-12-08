@@ -21,7 +21,7 @@ public class DCmp implements Instruction
 	 * Two double values are popped from the stack, compared and the resulting
 	 * integer is pushed onto the stack.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		DoubleType a = new DoubleType();
 		DoubleType b = new DoubleType();
@@ -29,8 +29,8 @@ public class DCmp implements Instruction
 		StackAccess.pop(state, b);
 		double aD, bD;
 		int result;
-		aD = a.getDouble();
-		bD = b.getDouble();
+		aD = a.get_double();
+		bD = b.get_double();
 		if (aD == bD)
 		{
 			result = 0;

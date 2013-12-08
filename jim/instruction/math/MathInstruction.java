@@ -44,7 +44,7 @@ public abstract class MathInstruction implements Instruction
 	 *
 	 * @see #operate(NumericType, NumericType)
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		NumericType a, b;
 		try

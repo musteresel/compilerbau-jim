@@ -17,7 +17,7 @@ public class Lt implements BooleanExpression
 	 * */
 	public boolean evaluate(IntegerType a, IntegerType b)
 	{
-		return (a.getInt() < b.getInt());
+		return (a.get_int() < b.get_int());
 	}
 }
 

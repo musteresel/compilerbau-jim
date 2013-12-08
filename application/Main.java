@@ -38,14 +38,14 @@ public class Main
 			return;
 		}
 		IntegerType entry = (IntegerType) answer;
-		VM vm = new VM(code, entry.getInt());
+		VM vm = new VM(code, entry.get_int());
 		while (vm.good())
 		{
 			vm.step();
 		}
 		IntegerType result = new IntegerType();
 		StackAccess.pop(vm, result);
-		System.out.println("Result = " + Integer.toString(result.getInt()));
+		System.out.println("Result = " + Integer.toString(result.get_int()));
 		// vm.load_memory(new byte[0]);
 		// vm.load_instructions(unit.evaluate(), entryPoint);
 	}

@@ -21,6 +21,6 @@ public interface Instruction
 	 *
 	 * @param state The state to execute the instruction with.
 	 *  */
-	public abstract void executeWith(MachineState state);
+	public abstract void execute_with(MachineState state);
 }
 

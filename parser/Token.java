@@ -38,7 +38,7 @@ public class Token
 	 *
 	 * @return Line number on which this token was found.
 	 * */
-	public int getLineNumber()
+	public int get_linenumber()
 	{
 		return this.lineNumber;
 	}

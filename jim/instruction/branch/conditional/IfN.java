@@ -35,7 +35,7 @@ public abstract class IfN implements Instruction
 	public IfN(BooleanExpression expression, IntegerType destination)
 	{
 		this.expression = expression;
-		this.destination = destination.getInt();
+		this.destination = destination.get_int();
 	}
 
 
@@ -46,7 +46,7 @@ public abstract class IfN implements Instruction
 	 * to the destination is executed. Otherwise the instruction requests
 	 * stepping to the next instruction.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		IntegerType a = new IntegerType();
 		IntegerType b = new IntegerType(0);

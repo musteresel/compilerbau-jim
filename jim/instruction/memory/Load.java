@@ -41,7 +41,7 @@ public abstract class Load implements Instruction
 	public Load(Class type, IntegerType index)
 	{
 		this.type = type;
-		this.index = index.getInt();
+		this.index = index.get_int();
 	}
 
 
@@ -50,7 +50,7 @@ public abstract class Load implements Instruction
 	 * A value of the underlying type is read from the frame index and
 	 * pushed onto the stack.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		Type var;
 		try

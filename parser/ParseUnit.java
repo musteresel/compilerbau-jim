@@ -70,9 +70,9 @@ public class ParseUnit
 		// Set to the last added instruction, or null, if last processed token
 		// was not an instruction or part thereof.
 		InstructionStub lastInstructionStub = null;
-		while (tokenizer.hasToken())
+		while (tokenizer.has_token())
 		{
-			Token token = tokenizer.nextToken();
+			Token token = tokenizer.next_token();
 			// Check whether the token is an instruction.
 			if (instructionMap.containsKey(token.toString()))
 			{
@@ -97,9 +97,9 @@ public class ParseUnit
 				if (nextMapping != null)
 				{
 					this.log_failure(new ParseFailure("Label declaration of " +
-								token + " (Line " + Integer.toString(token.getLineNumber()) +
+								token + " (Line " + Integer.toString(token.get_linenumber()) +
 								") after declaration of " + nextMapping + " (Line " +
-								Integer.toString(nextMapping.getLineNumber()) + ")."));
+								Integer.toString(nextMapping.get_linenumber()) + ")."));
 				}
 				// Try to proceed in order to evaluate as much as possible, and thus
 				// providing detailed error reporting.
@@ -151,7 +151,7 @@ public class ParseUnit
 					{
 						this.log_failure(new ParseFailure("Label declaration of " +
 									nextMapping + " (Line " +
-									Integer.toString(nextMapping.getLineNumber()) +
+									Integer.toString(nextMapping.get_linenumber()) +
 									") tries to use reference " + token + "."));
 						nextMapping = null;
 					}
@@ -173,7 +173,7 @@ public class ParseUnit
 					else
 					{
 						this.log_failure(new ParseFailure("Orphan token at line " +
-									Integer.toString(token.getLineNumber()) + ": " +
+									Integer.toString(token.get_linenumber()) + ": " +
 									token + "."));
 					}
 				}

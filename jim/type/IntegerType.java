@@ -22,7 +22,7 @@ public class IntegerType implements NumericType
 	}
 
 
-	public int getInt()
+	public int get_int()
 	{
 		return this.value;
 	}

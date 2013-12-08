@@ -17,7 +17,7 @@ public class Ldc implements Instruction
 		this.type = type;
 	}
 
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		StackAccess.push(state, this.type);
 		FlowControl.step(state);

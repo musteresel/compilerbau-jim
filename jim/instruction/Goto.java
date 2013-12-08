@@ -30,13 +30,13 @@ public class Goto implements Instruction
 	 * */
 	public Goto(IntegerType destination)
 	{
-		this.destination = destination.getInt();
+		this.destination = destination.get_int();
 	}
 
 
 	/** Executing the goto results in a flow control jump.
 	 * */
-	public void executeWith(MachineState state)
+	public void execute_with(MachineState state)
 	{
 		FlowControl.jump(state, destination);
 	}

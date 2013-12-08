@@ -31,7 +31,7 @@ public class VM implements VirtualMachine, MachineState, RegisterFile, Memory
 
 	public void step()
 	{
-		this.code[this.pc].executeWith(this);
+		this.code[this.pc].execute_with(this);
 	}
 
 	public boolean good()

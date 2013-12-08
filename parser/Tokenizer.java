@@ -55,7 +55,7 @@ public class Tokenizer
 	 *
 	 * @return Last read token or null, if there are no more tokens available.
 	 * */
-	public Token nextToken()
+	public Token next_token()
 	{
 		return this.token;
 	}
@@ -68,7 +68,7 @@ public class Tokenizer
 	 *
 	 * @return True if a next token has been found.
 	 * */
-	public boolean hasToken()
+	public boolean has_token()
 	{
 		int nextFromReader;
 		int startLineNumber;
