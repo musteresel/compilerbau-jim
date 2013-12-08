@@ -9,6 +9,7 @@ import virtualmachine.Type;
 import virtualmachine.StackAccess;
 import jim.InstructionMapping;
 import jim.type.IntegerType;
+import parser.NoCommentReader;
 import parser.Tokenizer;
 import parser.ParseUnit;
 import parser.ParseFailure;
@@ -19,7 +20,7 @@ public class Main
 	{
 		String fileName = args[0];
 		FileReader reader = new FileReader(fileName);
-		Tokenizer tokenizer = new Tokenizer(reader);
+		Tokenizer tokenizer = new Tokenizer(new NoCommentReader(reader));
 		InstructionMapping jimMap = new InstructionMapping();
 		ParseUnit unit = new ParseUnit(jimMap.get_mapping(), tokenizer);
 		Type answer = unit.evaluate_reference("main");

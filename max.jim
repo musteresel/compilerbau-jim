@@ -13,8 +13,10 @@ dload 16
 end:
 dreturn
 
+; Comments
+; Everywhere!
 
-main:
+main: ; A main method is here!
 dmst
 ldc 5.0
 ldc 2.0
