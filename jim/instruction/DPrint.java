@@ -9,7 +9,7 @@ public class DPrint extends BasePrint
 {
 	public DPrint()
 	{
-		super(new DoubleType());
+		super(DoubleType.class);
 	}
 }
 

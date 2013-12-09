@@ -9,7 +9,7 @@ public class IPrint extends BasePrint
 {
 	public IPrint()
 	{
-		super(new IntegerType());
+		super(IntegerType.class);
 	}
 }
 
