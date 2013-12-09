@@ -23,7 +23,7 @@ public class NoCommentReader extends LineNumberReader
 	public NoCommentReader(Reader r)
 	{
 		super(r);
-		this.wasWhite = false;
+		this.wasWhite = true;
 	}
 
 
