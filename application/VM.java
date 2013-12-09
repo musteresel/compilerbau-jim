@@ -31,6 +31,8 @@ public class VM implements VirtualMachine, MachineState, RegisterFile, Memory
 
 	public void step()
 	{
+		System.out.println("    [VM] @ " + Integer.toString(this.pc) +
+				" instruction " + this.code[this.pc].getClass().getName());
 		this.code[this.pc].execute_with(this);
 	}
 

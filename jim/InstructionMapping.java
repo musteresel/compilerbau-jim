@@ -33,16 +33,31 @@ public class InstructionMapping
 		this.m.put("dsub", DSub.class);
 		this.m.put("dmul", DMul.class);
 		this.m.put("ddiv", DDiv.class);
+		
+		
+		this.m.put("areflocal", ARefLocal.class);
+
+		this.m.put("aaload", AALoad.class);
+		this.m.put("aastore", AAStore.class);
+
+		this.m.put("iaload", IALoad.class);
+		this.m.put("iastore", IAStore.class);
+
+		this.m.put("daload", DALoad.class);
+		this.m.put("dastore", DAStore.class);
 
 		
 		this.m.put("istore", IStore.class);
 		this.m.put("iload", ILoad.class);
-		
+
 		this.m.put("dstore", DStore.class);
 		this.m.put("dload", DLoad.class);
 
-		this.m.put("ldc", Ldc.class);
+		this.m.put("astore", AStore.class);
+		this.m.put("aload", ALoad.class);
 
+		this.m.put("ldc", Ldc.class);
+		this.m.put("srsv", SRsv.class);
 
 		this.m.put("dcmp", DCmp.class);
 
@@ -76,6 +91,8 @@ public class InstructionMapping
 		this.m.put("halt", Halt.class);
 		this.m.put("iprint", IPrint.class);
 		this.m.put("dprint", DPrint.class);
+
+
 	}
 
 

@@ -1,0 +1,99 @@
+main:
+mst
+cup 0 main_fct
+ldc 0
+halt
+
+
+
+
+main_fct:
+ldc 1 ; <--- generated ref points here
+ldc 2
+ldc 3
+ldc 4
+ldc 5
+areflocal 8 ; the 8 is the local byte address of the "1"
+; The reference is at 8 + 5*4 = 28 local byte address
+imst
+aload 28
+ldc 5 ; <--- The size of the array
+cup 8 sum_integer_array
+iprint
+
+imst
+cup 0 sum_of_squares
+iprint
+
+return
+
+sum_integer_array:
+; at 8 is the arrayref
+; at 8 + 4 = 12 is the size
+ldc 0 ; local sum variable at 16
+loop_start:
+iload 12
+if!gt loop_end
+; is greater than 0
+iload 12 ldc 1
+isub ; Decrement index value
+istore 12 ; Store
+;    iload 12 iprint
+aload 8 ; Load array reference
+iload 12 ; Load index
+ldc 4 imul ; Multiply by type size
+iaload ; Load value from array
+;   aload 8 iload 12 ldc 4 imul iaload iprint ldc 3.14 dprint
+iload 16 ; Load sum variable
+iadd ; Add
+istore 16 ; Store back into sum variable
+goto loop_start
+loop_end:
+iload 16
+ireturn
+
+
+fill_squares_array:
+; at 8 is the arrayref
+; at 8 +4 = 12 is the size
+iload 12
+if!gt loop2_end
+; Decrement index counter and store back to local (parameter) variable
+iload 12 ldc 1 isub
+istore 12 ;iload 12 iprint
+; Load array reference
+aload 8
+; Load index and multiply with type size
+iload 12 ldc 4 imul
+; Load index counter, square
+iload 12 iload 12 imul
+; Store to array
+iastore
+; Continue loop
+goto fill_squares_array
+loop2_end:
+return
+
+
+sum_of_squares:
+; Reserve 10 * 4 Bytes for our array
+srsv 40
+; Create array reference
+areflocal 8 ; <--- @ 8 + 40 = 48
+; Prepare function call to fill array
+mst 
+; Create an array from our reserved space as parameter and add the size
+aload 48 ; do NOT use areflocal here
+ldc 10
+; Call the fill function, which modifies the array
+cup 8 fill_squares_array
+; Prepare call to sum function
+imst
+; Give parameters
+aload 48
+ldc 10
+; Call the sum function, which returns a value
+cup 8 sum_integer_array
+; use the return value as our own return value
+ireturn
+
