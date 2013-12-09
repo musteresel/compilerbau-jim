@@ -46,7 +46,7 @@ public abstract class MathInstruction implements Instruction
 		{
 			this.lhs = type.newInstance();
 			this.rhs = type.newInstance();
-			this.result = type.newInstance();
+			this.result = this.lhs; // Note: Hacky memory savings! TODO
 		}
 		catch (Exception e)
 		{
