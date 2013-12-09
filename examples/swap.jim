@@ -1,0 +1,44 @@
+; Swap example showing how to call a function with parameter passing by
+; reference.
+; -----------------------------------------------------------------------------
+
+
+; Main function. Two local variables are declared and set to magic values.
+; After calling swap function, the values of the two variables should be
+; swapped.
+main:
+ldc 42          ; Set local variable 1 to magic value 42 at offset 8.
+ldc 21          ; Set local variable 2 to magic value 21 at offset 16.
+iload 8  iprint ; Print variable 1.
+iload 12 iprint ; Print variable 2.
+mst             ; Prepare call to swap function. Won't return anything.
+areflocal 8     ; Create a reference to the first variable.
+areflocal 12    ; Create a reference to the second variable.
+cup 8 swap      ; Call swap function, using both references as parameters.
+iload 8  iprint ; Load and print variable 1.
+iload 12 iprint ; Load and print variable 2.
+ldc 0           ; Set exit code.
+ireturn         ; Return exit code.
+
+
+; Swap function. Takes two array references as parameters and swaps the
+; contents of the respective first elements.
+swap:
+srsv 4     ; Reserve space for a local variable at offset 16.
+ aload 8   ; Load first parameter, ...
+ ldc 0     ; ... index 0 to ...
+iaload     ; ... load the contents of the first reference.
+istore 16  ; Store to local variable.
+ aload 8   ; Load first parameter, ...
+ ldc 0     ; ... index 0 and ...
+  aload 12 ; ... the contents of the second reference to ...
+  ldc 0
+ iaload
+iastore    ; ... store them in the first reference.
+ aload 12  ; Load second parameter, ...
+ ldc 0     ; ... index 0 and ...
+ iload 16  ; ... previously saved local variable with contents from
+           ; first reference to ...
+iastore    ; ... store them in the second reference.
+return
+
