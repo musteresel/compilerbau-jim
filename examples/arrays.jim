@@ -1,0 +1,126 @@
+; Example to show how arrays may be used as parameters to function.
+;
+; All arrays in this example have integer values as elements.
+; -----------------------------------------------------------------------------
+
+
+; Global constants
+LENGTH: 100
+SIZE: 400
+OFFSET: 408
+
+
+; Main function. This is a parameterless function returning an integer value.
+;
+; The function creates a local array, fills it with the sequence of natural
+; numbers, and calculates the sum and the sum of squares of this
+; sequence.
+; The exit code will be 0 if nothing crashes.
+main:
+srsv SIZE     ; 4 * 10 Bytes stack space reserved for the array
+areflocal 8   ; 8 bytes is the (local) start index of the array.
+              ;   (0 is the markpointer value, 4 the return address)
+              ; The new created reference is at 48 bytes (local index).
+mst           ; Prepare function call to fill array, won't return anything.
+aload OFFSET  ; Load the array reference as first parameter
+ldc LENGTH    ; Load the array length as second parameter
+cup 8 fill    ; Call fill function, 8 bytes are taken as parameters.
+imst          ; Prepare call to sum function. An integer will be returned.
+aload OFFSET  ; Load the array reference as parameter ...
+ldc LENGTH    ; ... as well as the array length.
+cup 8 sum     ; Call sum function, parameters take 8 bytes.
+iprint        ; Print the return value, which is the top of the stack after sum.
+mst           ; Prepare call to square function.
+aload OFFSET
+ldc LENGTH
+cup 8 asquare ; Call square function.
+imst          ; Prepare call to sum function.
+aload OFFSET
+ldc LENGTH
+cup 8 sum     ; Call sum function another time, but with modified array.
+iprint        ; Print the sum of squares.
+ldc 0         ; Load the exit code
+ireturn       ; Return top of stack (which is the exit code)
+
+
+; Fill function. This function takes an arrayreference as well as the arrays
+; length as parameters and fills the array with numbers from 1 to the arrays
+; length.
+fill:
+ldc 0              ; Set the initial value of the counter, which will be written
+                   ; to the arrays elements. Its address is 8 + (4 + 4) = 16.
+fill_ls:           ; Set a label to the loop start of this function.
+iload 16           ; Load the counter.
+iload 12           ; Load the array length.
+if_icmp!lt fill_le ; If counter is not less array length, jump to loop end.
+aload 8            ; Load the array reference as parameter 1 to iastore.
+iload 16           ; Load the counter as parameter 2 (index) to iastore.
+ldc 4
+imul               ; Convert integer index to byte index.
+iload 16           ; Load the counter as part of fill value.
+ldc 1              ; Load constant 1
+iadd               ; Increment counter value by one.
+istore 16          ; Store the new counter value.
+iload 16           ; Load the just stored value and use it as parameter 3
+iastore            ; Store the value to the index of the given array.
+goto fill_ls       ; Go back up to loop start.
+fill_le:           ; Set a label to the loop end of this function.
+return             ; Return to caller.
+
+
+; Square function. This function takes an arrayreference as well as the arrays
+; length as parameters and squares the content of every array element.
+asquare:
+ldc 0             ; Local variable to hold the loaded value. It's at 16.
+asquare_ls:
+iload 12          ; Load the second parameter (initially array length)
+ldc 1
+isub              ; Decrement by one.
+istore 12         ; Store back to parameter for later use.
+iload 12          ; Load the second parameter as index
+if!ge asquare_le  ; If index not greater or equal zero, jump to loop end.
+aload 8           ; Load array reference for iaload
+iload 12          ; Load index for iaload
+ldc 4             ; Multiply by 4 bytes ...
+imul              ; ... to convert integer index to byte index.
+iaload            ; Load element value.
+istore 16         ; Store value to local variabe to avoid multiple loading
+                  ; from array (a dup instruction would help here).
+aload 8           ; Load array reference for iastore
+iload 12          ; Load index for iastore
+ldc 4
+imul              ; Convert integer index to byte index.
+iload 16
+iload 16          ; Load the elements value two times.
+imul              ; Square the elements value. Use for iastore.
+iastore           ; Write the result back to the array.
+goto asquare_ls   ; Back to loop start
+asquare_le:       ; Mark end of loop
+return            ; Return nothing.
+
+
+; Sum function. This function takes an arrayreference as well as the arrays
+; length as parameters and returns the sum of the contents of the given array.
+sum:
+                    ; The arrayreference is at 8
+                    ; The array length is at 8 + 4 = 12
+ldc 0               ; A local sum variable is at 16
+loop_start:         ; Mark start of loop
+iload 12            ; Load second parameter (index, initially length of array)
+if!gt loop_end      ; If not greater than 0, jump to loop end
+iload 12        
+ldc 1
+isub                ; Decrement index value and ...
+istore 12           ; ... store.
+aload 8             ; Load array reference, ...
+iload 12 ldc 4 imul ; ... index, ...
+iaload              ; Load value from array.
+iload 16            ; Load sum variable.
+iadd                ; Add and ...
+istore 16           ; ... store back into sum variable.
+goto loop_start     ; Back to loop start.
+loop_end:           ; Mark end of loop.
+iload 16            ; Load sum variable ...
+ireturn             ; to use it as return value of the function.
+
+
