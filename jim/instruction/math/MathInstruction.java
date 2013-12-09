@@ -55,8 +55,8 @@ public abstract class MathInstruction implements Instruction
 		{
 			throw new UnsupportedOperationException(e);
 		}
-		StackAccess.pop(state, a);
 		StackAccess.pop(state, b);
+		StackAccess.pop(state, a);
 		StackAccess.push(state, this.operate(a, b));
 		FlowControl.step(state);
 	}
