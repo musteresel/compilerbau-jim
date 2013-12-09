@@ -9,7 +9,7 @@ public class Halt implements Instruction
 {
 	public void execute_with(MachineState state)
 	{
-		FlowControl.jump(state,-42);
+		// Do nothing, especially do not change programm counter.
 	}
 }
 

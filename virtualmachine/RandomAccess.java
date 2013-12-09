@@ -15,6 +15,21 @@ import virtualmachine.Type;
  * */
 public class RandomAccess
 {
+	/** Protected member to enable or disable debug output.
+	 * */
+	protected static boolean debug = false;
+
+
+	/** Enable or disable debugging.
+	 *
+	 * @param debug True to enable debugging.
+	 * */
+	public static void set_debugging(boolean debug)
+	{
+		RandomAccess.debug = debug;
+	}
+
+
 	/** Read from memory at a position into a type instance.
 	 *
 	 * This static method shall be used to read from a position in memory,
@@ -29,6 +44,10 @@ public class RandomAccess
 	{
 		byte[] data = state.get_memory().read_memory(position, type.size());
 		type.from(data);
+		if (RandomAccess.debug)
+		{
+			System.err.format("  READ  @ %05d: %s%n", position, type.toString());
+		}
 	}
 
 
@@ -45,6 +64,10 @@ public class RandomAccess
 	{
 		byte[] data = type.to();
 		state.get_memory().write_memory(position, data);
+		if (RandomAccess.debug)
+		{
+			System.err.format("  WROTE @ %05d: %s%n", position, type.toString());
+		}
 	}
 }
 
