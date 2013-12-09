@@ -77,7 +77,8 @@ public class ParseUnit
 			if (instructionMap.containsKey(token.toString()))
 			{
 				lastInstructionStub =
-					new InstructionStub(instructionMap.get(token.toString()));
+					new InstructionStub(instructionMap.get(token.toString()),
+							token.get_linenumber());
 				// If the previous token was a label declaration, map this
 				// instructions address to the label.
 				if (nextMapping != null)

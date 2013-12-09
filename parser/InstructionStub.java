@@ -32,15 +32,23 @@ public class InstructionStub
 	protected Class<? extends Instruction> instruction;
 
 
+	/** Line number of the represented instruction.
+	 *
+	 * This is helping alot by generating better parse failure messages.
+	 * */
+	protected int line;
+
+
 	/** Constructor.
 	 *
 	 * Initially, no parameters are given.
 	 *
 	 * @param instruction The class of the represented instruction.
 	 * */
-	public InstructionStub(Class<? extends Instruction> instruction)
+	public InstructionStub(Class<? extends Instruction> instruction, int line)
 	{
 		this.instruction = instruction;
+		this.line = line;
 		this.parameters = new LinkedList<ValueStub>();
 	}
 
@@ -92,6 +100,7 @@ public class InstructionStub
 		{
 			unit.log_failure(new ParseFailure("Could not evaluate " +
 						this.instruction.getName() +
+						" (Line " + Integer.toString(this.line) + ")" +
 						" due a parameter evaluation failure."));
 			return null;
 		}
@@ -119,6 +128,7 @@ public class InstructionStub
 			// failure.
 			unit.log_failure(new ParseFailure("Could not evaluate " +
 						this.instruction.getName() +
+						" (Line " + Integer.toString(this.line) + ")" +
 						" due to parameter mismatch."));
 			return null;
 		}
