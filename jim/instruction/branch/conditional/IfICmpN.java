@@ -58,8 +58,8 @@ public abstract class IfICmpN implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		StackAccess.pop(state, this.lhs);
 		StackAccess.pop(state, this.rhs);
+		StackAccess.pop(state, this.lhs);
 		if (this.expression.evaluate(this.lhs, this.rhs))
 		{
 			FlowControl.step(state);
