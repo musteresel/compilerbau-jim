@@ -27,6 +27,18 @@ public abstract class IfN implements Instruction
 	protected BooleanExpression expression;
 
 
+	/** Type instance to store left hand side operand of the expression.
+	 * */
+	protected IntegerType lhs;
+
+
+	/** Type instance to store right hand side operand of the expression.
+	 *
+	 * This is fixed to have a zero value.
+	 * */
+	protected final IntegerType rhs;
+
+
 	/** Constructor setting expression and destination.
 	 *
 	 * @param expression The expression to evaluate.
@@ -36,6 +48,8 @@ public abstract class IfN implements Instruction
 	{
 		this.expression = expression;
 		this.destination = destination.get_int();
+		this.lhs = new IntegerType();
+		this.rhs = new IntegerType(0);
 	}
 
 
@@ -48,10 +62,8 @@ public abstract class IfN implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		IntegerType a = new IntegerType();
-		IntegerType b = new IntegerType(0);
-		StackAccess.pop(state, a);
-		if (this.expression.evaluate(a, b))
+		StackAccess.pop(state, this.lhs);
+		if (this.expression.evaluate(this.lhs, this.rhs))
 		{
 			FlowControl.step(state);
 		}

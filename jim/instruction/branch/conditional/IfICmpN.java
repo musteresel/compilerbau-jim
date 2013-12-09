@@ -26,6 +26,16 @@ public abstract class IfICmpN implements Instruction
 	protected BooleanExpression expression;
 
 
+	/** Type instance to store the left hand side operand of the expression.
+	 * */
+	protected IntegerType lhs;
+
+
+	/** Type instance to store the right hand side operand of the expression.
+	 * */
+	protected IntegerType rhs;
+
+
 	/** Constructor setting expression and destination.
 	 *
 	 * @param expression The expression to evaluate.
@@ -35,6 +45,8 @@ public abstract class IfICmpN implements Instruction
 	{
 		this.expression = expression;
 		this.destination = destination.get_int();
+		this.lhs = new IntegerType();
+		this.rhs = new IntegerType();
 	}
 
 
@@ -46,11 +58,9 @@ public abstract class IfICmpN implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		IntegerType a = new IntegerType();
-		IntegerType b = new IntegerType();
-		StackAccess.pop(state, a);
-		StackAccess.pop(state, b);
-		if (this.expression.evaluate(a, b))
+		StackAccess.pop(state, this.lhs);
+		StackAccess.pop(state, this.rhs);
+		if (this.expression.evaluate(this.lhs, this.rhs))
 		{
 			FlowControl.step(state);
 		}
