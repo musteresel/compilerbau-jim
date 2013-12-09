@@ -16,6 +16,25 @@ import jim.type.IntegerType;
  * */
 public class DCmp implements Instruction
 {
+	/** Type instance to store lhs operand.
+	 * */
+	protected DoubleType lhs;
+
+
+	/** Type instance to store rhs operand.
+	 * */
+	protected DoubleType rhs;
+
+
+	/** Constructor creating type instances.
+	 * */
+	public DCmp()
+	{
+		this.lhs = new DoubleType();
+		this.rhs = new DoubleType();
+	}
+
+
 	/** Compare two double values from the stack.
 	 *
 	 * Two double values are popped from the stack, compared and the resulting
@@ -23,14 +42,12 @@ public class DCmp implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		DoubleType a = new DoubleType();
-		DoubleType b = new DoubleType();
-		StackAccess.pop(state, a);
-		StackAccess.pop(state, b);
+		StackAccess.pop(state, this.rhs);
+		StackAccess.pop(state, this.lhs);
 		double aD, bD;
 		int result;
-		aD = a.get_double();
-		bD = b.get_double();
+		aD = this.lhs.get_double();
+		bD = this.rhs.get_double();
 		if (aD == bD)
 		{
 			result = 0;
