@@ -19,7 +19,7 @@ public abstract class Sub extends MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Sub(Class type)
+	public Sub(Class<? extends NumericType> type)
 	{
 		super(type);
 	}
@@ -29,11 +29,11 @@ public abstract class Sub extends MathInstruction
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate()
 	 * */
-	public NumericType operate(NumericType a, NumericType b)
+	public void operate()
 	{
-		return a.sub(b);
+		this.result.sub(this.lhs, this.rhs);
 	}
 }
 

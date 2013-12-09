@@ -11,35 +11,35 @@ import virtualmachine.Type;
  * */
 public interface NumericType extends Type
 {
-	/** Add this value to another, returning a new value.
+	/** Set this value to the sum of the two operands.
 	 *
-	 * @param o The other summand.
-	 * @return The sum of this and o.
+	 * @param lhs Left hand side operand.
+	 * @param rhs Right hand side operand.
 	 * */
-	public abstract NumericType add(NumericType o);
+	public abstract void add(NumericType lhs, NumericType rhs);
 
 
-	/** Subtract another value from this, returning a new value.
+	/** Set this value to the difference of the two operands.
 	 *
-	 * @param o The value to subtract.
-	 * @return The difference of this and o.
+	 * @param lhs Left hand side operand.
+	 * @param rhs Right hand side operand.
 	 * */
-	public abstract NumericType sub(NumericType o);
+	public abstract void sub(NumericType lhs, NumericType rhs);
 	
 	
-	/** Multiply this value and another, returning a new value.
+	/** Set this value to the product of the two operands.
 	 *
-	 * @param o The other factor.
-	 * @return The product of this and o.
+	 * @param lhs Left hand side operand.
+	 * @param rhs Right hand side operand.
 	 * */
-	public abstract NumericType mul(NumericType o);
+	public abstract void mul(NumericType lhs, NumericType rhs);
 	
 	
-	/** Divide this value by another, returning a new value.
+	/** Set this value to the quotient of the two operands.
 	 *
-	 * @param o The divisor.
-	 * @return The quotient of this and o.
+	 * @param lhs Left hand side operand.
+	 * @param rhs Right hand side operand.
 	 * */
-	public abstract NumericType div(NumericType o);
+	public abstract void div(NumericType lhs, NumericType rhs);
 }
 

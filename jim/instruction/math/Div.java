@@ -19,7 +19,7 @@ public abstract class Div extends MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Div(Class type)
+	public Div(Class<? extends NumericType> type)
 	{
 		super(type);
 	}
@@ -29,11 +29,11 @@ public abstract class Div extends MathInstruction
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate()
 	 * */
-	public NumericType operate(NumericType a, NumericType b)
+	public void operate()
 	{
-		return a.div(b);
+		this.result.div(this.lhs, this.rhs);
 	}
 }
 

@@ -79,31 +79,27 @@ public class DoubleType implements NumericType
 	}
 
 
-	public NumericType add(NumericType o)
+	public void add(NumericType lhs, NumericType rhs)
 	{
-		DoubleType i = convert(o);
-		return new DoubleType(this.value + i.value);
+		this.value = convert(lhs).value + convert(rhs).value;
 	}
 
 
-	public NumericType sub(NumericType o)
+	public void sub(NumericType lhs, NumericType rhs)
 	{
-		DoubleType i = convert(o);
-		return new DoubleType(this.value - i.value);
+		this.value = convert(lhs).value - convert(rhs).value;
 	}
 
 
-	public NumericType mul(NumericType o)
+	public void mul(NumericType lhs, NumericType rhs)
 	{
-		DoubleType i = convert(o);
-		return new DoubleType(this.value * i.value);
+		this.value = convert(lhs).value * convert(rhs).value;
 	}
 
 
-	public NumericType div(NumericType o)
+	public void div(NumericType lhs, NumericType rhs)
 	{
-		DoubleType i = convert(o);
-		return new DoubleType(this.value / i.value);
+		this.value = convert(lhs).value / convert(rhs).value;
 	}
 }
 

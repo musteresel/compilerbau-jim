@@ -19,7 +19,7 @@ public abstract class Mul extends MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Mul(Class type)
+	public Mul(Class<? extends NumericType> type)
 	{
 		super(type);
 	}
@@ -29,11 +29,11 @@ public abstract class Mul extends MathInstruction
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate()
 	 * */
-	public NumericType operate(NumericType a, NumericType b)
+	public void operate()
 	{
-		return a.mul(b);
+		this.result.mul(this.lhs, this.rhs);
 	}
 }
 

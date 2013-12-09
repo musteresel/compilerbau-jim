@@ -17,47 +17,58 @@ import virtualmachine.FlowControl;
  * */
 public abstract class MathInstruction implements Instruction
 {
-	/** Protected member variable storing the class of the underlying type.
-	 *
-	 * This member is used to create new instances of the underlying type.
+	/** Protected member variable to store left hand side value.
 	 * */
-	protected Class type;
+	protected NumericType lhs;
 
 
-	/** Constructor setting type class variable.
+	/** Protected member variable to store right hand side value.
+	 * */
+	protected NumericType rhs;
+
+
+	/** Protected member variable to store result of operation.
+	 * */
+	protected NumericType result;
+
+
+	/** Constructor creating type instances for lhs, rhs and result.
 	 *
-	 * @see #type
+	 * @see #lhs
+	 * @see #rhs
+	 * @see #result
 	 *
 	 * @param type The underlying type.
 	 * */
-	public MathInstruction(Class type)
+	public MathInstruction(Class<? extends NumericType> type)
 	{
-		this.type = type;
+		try
+		{
+			this.lhs = type.newInstance();
+			this.rhs = type.newInstance();
+			this.result = type.newInstance();
+		}
+		catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 
 	/** Implementation of a generic math instruction.
 	 *
 	 * Two values of the same type are popped from the stack, used
-	 * in some mathematical operation which produces a result value
+	 * in some mathematical operation which set a result value
 	 * of the underlying type, which is then pushed onto the stack.
 	 *
 	 * @see #operate(NumericType, NumericType)
 	 * */
 	public void execute_with(MachineState state)
 	{
-		NumericType a, b;
-		try
-		{
-			a	= (NumericType) this.type.newInstance();
-			b = (NumericType) this.type.newInstance();
-		} catch (Exception e)
-		{
-			throw new UnsupportedOperationException(e);
-		}
-		StackAccess.pop(state, b);
-		StackAccess.pop(state, a);
-		StackAccess.push(state, this.operate(a, b));
+		StackAccess.pop(state, this.rhs);
+		StackAccess.pop(state, this.lhs);
+		this.operate();
+		StackAccess.push(state, this.result);
 		FlowControl.step(state);
 	}
 
@@ -67,10 +78,10 @@ public abstract class MathInstruction implements Instruction
 	 * This method shall be implemented by derived, concrete math
 	 * operations like add, ...
 	 *
-	 * @param a This is the left hand value of the operation.
-	 * @param b This is the right hand value of the operation.
-	 * @return The result of the operation.
+	 * When this method is called, {@link #lhs} and {@link #rhs} are set to
+	 * the correct values. It's this methods responsibility to set {@link #result}
+	 * to the result of the operation.
 	 * */
-	public abstract NumericType operate(NumericType a, NumericType b);
+	public abstract void operate();
 }
 

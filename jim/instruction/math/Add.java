@@ -19,7 +19,7 @@ public abstract class Add extends MathInstruction
 	 *
 	 * @param type The underlying type.
 	 * */
-	public Add(Class type)
+	public Add(Class<? extends NumericType> type)
 	{
 		super(type);
 	}
@@ -29,11 +29,11 @@ public abstract class Add extends MathInstruction
 	 *
 	 * The implementation depends on the underlying type.
 	 *
-	 * @see jim.instruction.math.MathInstruction#operate(NumericType, NumericType)
+	 * @see jim.instruction.math.MathInstruction#operate()
 	 * */
-	public NumericType operate(NumericType a, NumericType b)
+	public void operate()
 	{
-		return a.add(b);
+		this.result.add(this.lhs, this.rhs);
 	}
 }
 
