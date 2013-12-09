@@ -23,24 +23,29 @@ public abstract class Store implements Instruction
 	protected int index;
 
 
-	/** Protected member variable storing the class of the underlying type.
-	 *
-	 * This member is used to create new instances of the underlying type.
+	/** Type instance storing the data.
 	 * */
-	protected Class type;
+	protected Type data;
 
 
-	/** Constructor setting type class variable and index.
+	/** Constructor setting index and creating data type instance.
 	 *
-	 * @see #type
+	 * @see #data
 	 * @see #index
 	 *
 	 * @param type The underlying type.
 	 * @param index The frame index to which something gets stored.
 	 * */
-	public Store(Class type, IntegerType index)
+	public Store(Class<? extends Type> type, IntegerType index)
 	{
-		this.type = type;
+		try
+		{
+			this.data = type.newInstance();
+		}
+		catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 		this.index = index.get_int();
 	}
 
@@ -52,16 +57,8 @@ public abstract class Store implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		Type var;
-		try
-		{
-			var	= (Type) this.type.newInstance();
-		} catch (Exception e)
-		{
-			throw new UnsupportedOperationException(e);
-		}
-		StackAccess.pop(state, var);
-		FrameAccess.write(state, var, this.index);
+		StackAccess.pop(state, this.data);
+		FrameAccess.write(state, this.data, this.index);
 		FlowControl.step(state);
 	}
 }

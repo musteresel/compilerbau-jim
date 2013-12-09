@@ -23,24 +23,29 @@ public abstract class Load implements Instruction
 	protected int index;
 
 
-	/** Protected member variable storing the class of the underlying type.
-	 *
-	 * This member is used to create new instances of the underlying type.
+	/** Instance of underlying type to hold the data.
 	 * */
-	protected Class type;
+	protected Type data;
 
 
-	/** Constructor setting type class variable and index.
+	/** Constructor setting index and creating data type instance.
 	 *
-	 * @see #type
+	 * @see #data
 	 * @see #index
 	 *
 	 * @param type The underlying type.
 	 * @param index The frame index from which something gets loaded.
 	 * */
-	public Load(Class type, IntegerType index)
+	public Load(Class<? extends Type> type, IntegerType index)
 	{
-		this.type = type;
+		try
+		{
+			this.data = type.newInstance();
+		}
+		catch (Exception e)
+		{
+			throw new UnsupportedOperationException(e);
+		}
 		this.index = index.get_int();
 	}
 
@@ -52,16 +57,8 @@ public abstract class Load implements Instruction
 	 * */
 	public void execute_with(MachineState state)
 	{
-		Type var;
-		try
-		{
-			var	= (Type) this.type.newInstance();
-		} catch (Exception e)
-		{
-			throw new UnsupportedOperationException(e);
-		}
-		FrameAccess.read(state, var, this.index);
-		StackAccess.push(state, var);
+		FrameAccess.read(state, this.data, this.index);
+		StackAccess.push(state, this.data);
 		FlowControl.step(state);
 	}
 }
