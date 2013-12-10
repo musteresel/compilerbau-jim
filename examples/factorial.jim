@@ -1,0 +1,35 @@
+; Factorial example showing that recursion works as expected.
+; -----------------------------------------------------------------------------
+
+
+; The number for which to build the factorial.
+NUMBER: 5
+
+
+; Main function. Calls factorial function with the number as an argument.
+main:
+ldc NUMBER        ; Load NUMBER as local variable at offset 8.
+imst              ; Prepare call to function which returns an integer.
+iload 8           ; Load local variable as parameter.
+cup 4 factorial   ; Call function with 4 bytes as parameter.
+iprint            ; Take the return value and print it.
+ldc 0             ; Load exit code on stack.
+ireturn           ; Return exit code.
+
+
+; Factorial function to recursively compute the factorial of a given integer.
+factorial:
+iload 8           ; Load first parameter.
+if!eq _not_null   ; Compare to 0, if it is equal ...
+ldc 1             ; ... load constant value 1 and ...
+ireturn           ; ... return that value to caller, otherwise ...
+_not_null:        ; ... do recursive calls.
+imst              ; Prepare recursive call, which will return an integer.
+iload 8           ; Load first parameter.
+ldc 1             ; Load constant value 1 and ...
+isub              ; ... subtract from loaded parameter, use as parameter for ...
+cup 4 factorial   ; ... the recursive call.
+iload 8           ; Load first parameter and ...
+imul              ; ... multiply with result of recursive call.
+ireturn           ; Return result to caller.
+
